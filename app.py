@@ -23,7 +23,16 @@ def register():
 
 @app.route('/login', methods=['POST'])
 def login():
-    return 
+    useremail=request.form.get('username') 
+    password=request.form.get('password')
+    result = User.query.filter_by(email=useremail).first()
+    passkey= result.password
+
+    if passkey==password:
+        print(passkey)
+        return redirect(url_for('index')) 
+    else:
+        print("Password Wrong")
 
 @app.route('/register', methods=['GET','POST'])
 def register_user():
@@ -33,7 +42,7 @@ def register_user():
     new_user=User(name=name,email=email,password=password)
     db.session.add(new_user)
     db.session.commit()
-    return redirect(url_for('login'))
+    return redirect(url_for('main'))
 
 @app.route('/index')
 def index():
