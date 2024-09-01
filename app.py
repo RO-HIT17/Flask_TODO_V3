@@ -22,8 +22,8 @@ def login():
     user_email=request.form.get('username') 
     password=request.form.get('password')
     result = User.query.filter_by(email=user_email).first()
-    passkey= result.password
     if result:
+        passkey= result.password
         if passkey==password:
             #print(passkey)
             return redirect(url_for('index')) 
