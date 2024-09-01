@@ -12,7 +12,9 @@ db.init_app(app)
     
 with app.app_context():
     db.create_all()
-@app.route('/register', methods=['POST'])
+    
+    
+@app.route('/register', methods=['GET','POST'])
 def register_user():
     name=request.form.get('name')
     email=request.form.get('email')
@@ -22,10 +24,14 @@ def register_user():
     db.session.commit()
     return redirect(url_for('login'))
 
-@app.route('/')
+@app.route('/index')
 def index():
     todos = Todo.query.all()
     return render_template('index.html', todos=todos)
+
+@app.route('/')
+def register():
+    return render_template('register.html')
 
 @app.route('/add', methods=['POST'])
 def add_todo():
