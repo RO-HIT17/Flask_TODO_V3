@@ -1,5 +1,6 @@
 from flask import redirect,url_for,render_template,request,Flask
 from models import db,Todo,User
+from sqlalchemy import select
 
 app=Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///todos.db'
@@ -43,9 +44,12 @@ def register_user():
     db.session.commit()
     return render_template('register.html' , disp_message="Registered Successfully" , val=1)
 
-@app.route('/index')
-def index():
-    todos = Todo.query.all()
+@app.route('/index')#/<int:user_id>
+def index():#user_id
+    #st=select(Todo).where(Todo.userid==user_id)
+    #result = db.session.execute(st)
+    #todos = result.all()
+    #print(todos)
     return render_template('index.html', todos=todos)
 
 @app.route('/add', methods=['POST'])
