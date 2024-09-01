@@ -43,7 +43,7 @@ def register_user():
     new_user=User(name=name,email=email,password=password)
     db.session.add(new_user)
     db.session.commit()
-    return render_template('login.html' , error_message="Registed Succesfully l")
+    return render_template('login.html' , error_message="Registered Successfully")
 
 @app.route('/index')
 def index():
