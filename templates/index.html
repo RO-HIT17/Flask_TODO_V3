@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>TODO List</h1>
+<form action="{{ url_for('add_todo') }}" method="POST">
+    <input type="text" name="title" placeholder="Enter a new task" autofocus>
+    <button type="submit" class ="add">Add Items</button>
+</form>
+<a href="{{ url_for('clear_all') }}"><button class="clear">Clear Completed Items</button></a>
+<!--Modified-->
+<ul>
+    {% for todo in todos %} 
+    <li>
+        <a href="{{ url_for('complete_todo', todo_id=todo.id) }}">
+            <button class="text1">
+            {% if todo.completed %}
+            <strike>{{ todo.title }}</strike>
+            {% else %}
+            {{ todo.title }}
+            {% endif %}
+            </button>
+        </a>
+        
+    {% endfor %}
+</ul>
+{% endblock %}
+<!--
+<a href="{{ url_for('clear_all') }}"><button class="clear">Clear</button></a>
+-->
+
