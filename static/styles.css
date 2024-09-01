@@ -4,7 +4,12 @@ body {
     margin: 0;
     padding: 0;
 }
-
+.logout-container {
+    position: fixed; 
+    top: 20px; 
+    right: 20px; 
+    z-index: 1000;
+}
 .container {
     width: 50%;
     margin: 50px auto;
@@ -38,7 +43,19 @@ button.text1 {
 button.text1:hover {
     background-color: #e2e6ea;
 }
+button.logout {
+    margin: 5px 0;
+    padding: 10px;
+    background-color: #dc3545; 
+    color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+}
 
+button.logout:hover {
+    background-color: #c82333; 
+}
 button.add {
     background-color: #28a745;
     color: white;

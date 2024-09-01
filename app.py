@@ -34,7 +34,6 @@ def login():
 def register():
     return render_template('register.html',val=0)
 
-
 @app.route('/register', methods=['GET','POST'])
 def register_user():
     name=request.form.get('name')
