@@ -6,6 +6,7 @@
     <input type="text" name="title" placeholder="Enter a new task" autofocus>
     <button type="submit" class ="add">Add Items</button>
 </form>
+<a href="{{ url_for('clear_all') }}"><button class="clear">Clear Completed Items</button></a>
 <!--Modified-->
 <ul>
     {% for todo in todos %} 
@@ -22,7 +23,7 @@
         
     {% endfor %}
 </ul>
-<a href="{{ url_for('clear_all') }}"><button class="clear">Clear Completed Items</button></a>
+
 {% endblock %}
 <!--
 <a href="{{ url_for('clear_all') }}"><button class="clear">Clear</button></a>

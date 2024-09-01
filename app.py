@@ -5,11 +5,7 @@ app=Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///todos.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
-
-#@app._got_first_request
-#def create_tables():
-#    db.create_all()
-    
+   
 with app.app_context():
     db.create_all()
     
@@ -47,7 +43,7 @@ def register_user():
     new_user=User(name=name,email=email,password=password)
     db.session.add(new_user)
     db.session.commit()
-    return redirect(url_for('main'))
+    return render_template('login.html' , error_message="Registed Succesfully l")
 
 @app.route('/index')
 def index():
@@ -63,13 +59,8 @@ def add_todo():
         db.session.commit()
     return redirect(url_for('index'))
 
-@app.route('/delete/<int:todo_id>')
-def delete_todo(todo_id):
-    todo = Todo.query.get(todo_id)
-    if todo:
-        db.session.delete(todo)
-        db.session.commit()
-    return redirect(url_for('index'))
+
+
 #Own Function
 @app.route('/clear')
 def clear_all():
@@ -90,3 +81,17 @@ def complete_todo(todo_id):
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+#@app._got_first_request
+#def create_tables():
+#    db.create_all()
+ 
+
+# @app.route('/delete/<int:todo_id>')
+# def delete_todo(todo_id):
+#     todo = Todo.query.get(todo_id)
+#     if todo:
+#         db.session.delete(todo)
+#         db.session.commit()
+#     return redirect(url_for('index'))
