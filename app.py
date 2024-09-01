@@ -50,6 +50,7 @@ def index():#user_id
     #result = db.session.execute(st)
     #todos = result.all()
     #print(todos)
+    todos = Todo.query.all()
     return render_template('index.html', todos=todos)
 
 @app.route('/add', methods=['POST'])
