@@ -32,7 +32,7 @@ def login():
         
 @app.route('/new')
 def register():
-    return render_template('register.html')
+    return render_template('register.html',val=0)
 
 
 @app.route('/register', methods=['GET','POST'])
@@ -43,7 +43,7 @@ def register_user():
     new_user=User(name=name,email=email,password=password)
     db.session.add(new_user)
     db.session.commit()
-    return render_template('login.html' , error_message="Registered Successfully")
+    return render_template('register.html' , disp_message="Registered Successfully" , val=1)
 
 @app.route('/index')
 def index():
