@@ -13,7 +13,18 @@ db.init_app(app)
 with app.app_context():
     db.create_all()
     
-    
+@app.route('/')
+def main():
+    return render_template('login.html')
+
+@app.route('/new')
+def register():
+    return render_template('register.html')
+
+@app.route('/login', methods=['POST'])
+def login():
+    return 
+
 @app.route('/register', methods=['GET','POST'])
 def register_user():
     name=request.form.get('name')
@@ -28,10 +39,6 @@ def register_user():
 def index():
     todos = Todo.query.all()
     return render_template('index.html', todos=todos)
-
-@app.route('/')
-def register():
-    return render_template('register.html')
 
 @app.route('/add', methods=['POST'])
 def add_todo():
