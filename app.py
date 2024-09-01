@@ -21,7 +21,6 @@ def login():
     if result:
         passkey= result.password
         if passkey==password:
-            #print(passkey)
             return redirect(url_for('index')) 
         else:
             error="Invalid Password"
@@ -57,8 +56,6 @@ def add_todo():
         db.session.add(new_todo)
         db.session.commit()
     return redirect(url_for('index'))
-
-
 
 #Own Function
 @app.route('/clear')
