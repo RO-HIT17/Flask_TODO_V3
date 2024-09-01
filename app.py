@@ -17,22 +17,27 @@ with app.app_context():
 def main():
     return render_template('login.html')
 
+@app.route('/login', methods=['POST'])
+def login():
+    user_email=request.form.get('username') 
+    password=request.form.get('password')
+    result = User.query.filter_by(email=user_email).first()
+    passkey= result.password
+    if result:
+        if passkey==password:
+            #print(passkey)
+            return redirect(url_for('index')) 
+        else:
+            error="Invalid Password"
+            return render_template('login.html' , error_message=error)
+    else:
+        error="Username unavailable"
+        return render_template('login.html' , error_message=error)
+        
 @app.route('/new')
 def register():
     return render_template('register.html')
 
-@app.route('/login', methods=['POST'])
-def login():
-    useremail=request.form.get('username') 
-    password=request.form.get('password')
-    result = User.query.filter_by(email=useremail).first()
-    passkey= result.password
-
-    if passkey==password:
-        print(passkey)
-        return redirect(url_for('index')) 
-    else:
-        print("Password Wrong")
 
 @app.route('/register', methods=['GET','POST'])
 def register_user():
