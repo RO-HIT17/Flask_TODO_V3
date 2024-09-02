@@ -45,12 +45,12 @@ def forgot_password():
 def reset_password():
     email=request.form.get('email')
     new_password=request.form.get('newpassword')
-    update=User.query.get(email)
+    update=User.query.filter_by(email=email).first()
     print(update)
     if update:
         update.password=new_password
         db.session.commit()
-        return redirect(url_for('main'))
+        return render_template('forgot_password.html')
     #return render_template('forgot_password.html')
 
 @app.route('/register', methods=['GET','POST'])
