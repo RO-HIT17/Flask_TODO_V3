@@ -30,7 +30,7 @@ def login():
             error="Invalid Password"    
             return render_template('login.html' , error_message=error)
     else:
-        error="Username unavailable"
+        error="Username not registered"
         return render_template('login.html' , error_message=error)
         
 @app.route('/new')
@@ -51,6 +51,9 @@ def reset_password():
         update.password=new_password
         db.session.commit()
         return render_template('forgot_password.html', message="Password Changed Successfully",val=1)
+    else:
+        error="Username not registered"
+        return render_template('forgot_password.html', er_message=error,val=1)
     #return render_template('forgot_password.html')
 
 @app.route('/register', methods=['GET','POST'])
