@@ -72,7 +72,7 @@ def add_todo(user_id):
 
 #Own Function
 @app.route('/clear/<int:user_id>')
-def clear_all():
+def clear_all(user_id):
     todo_lst=Todo.query.all()
     for i in todo_lst:
         if i.completed == True:
@@ -81,7 +81,7 @@ def clear_all():
     return redirect(url_for('index',user_id=user_id)) 
 
 @app.route('/complete/<int:user_id>/<int:todo_id>')
-def complete_todo(todo_id):
+def complete_todo(todo_id,user_id):
     todo = Todo.query.get(todo_id)
     if todo:
         todo.completed = not todo.completed
