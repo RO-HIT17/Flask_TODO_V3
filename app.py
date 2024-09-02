@@ -39,7 +39,7 @@ def register():
 
 @app.route('/forgot')
 def forgot_password():
-    return
+    return render_template('forgot_password.html')
 
 @app.route('/register', methods=['GET','POST'])
 def register_user():
