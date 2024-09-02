@@ -6,12 +6,12 @@
     <input type="text" name="title" placeholder="Enter a new task" autofocus>
     <button type="submit" class ="add">Add Items</button>
 </form>
-<a href="{{ url_for('clear_all') }}"><button class="clear">Clear Completed Items</button></a>
+<a href="{{ url_for('clear_all',user_id=user_id) }}"><button class="clear">Clear Completed Items</button></a>
 <!--Modified-->
 <ul>
     {% for todo in todos %} 
     <li>
-        <a href="{{ url_for('complete_todo', todo_id=todo.id) }}">
+        <a href="{{ url_for('complete_todo', todo_id=todo.todo_id,user_id=user_id) }}">
             <button class="text1">
             {% if todo.completed %}
             <strike>{{ todo.title }}</strike>

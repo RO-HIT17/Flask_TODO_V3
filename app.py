@@ -81,7 +81,7 @@ def clear_all(user_id):
     return redirect(url_for('index',user_id=user_id)) 
 
 @app.route('/complete/<int:user_id>/<int:todo_id>')
-def complete_todo(todo_id,user_id):
+def complete_todo(user_id,todo_id):
     todo = Todo.query.get(todo_id)
     if todo:
         todo.completed = not todo.completed
