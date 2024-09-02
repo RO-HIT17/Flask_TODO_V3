@@ -5,7 +5,7 @@ from sqlalchemy import select
 app=Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///todos.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db.init_app(app)
+db.init_app(app) 
    
 with app.app_context():
     db.create_all()
@@ -15,14 +15,15 @@ def main():
     return render_template('login.html')
 
 @app.route('/login', methods=['POST'])
-def login():
+def login(): 
     user_email=request.form.get('username') 
     password=request.form.get('password')
     result = User.query.filter_by(email=user_email).first()
     if result:
         passkey= result.password
+        user_id=result.id
         if passkey==password:
-            return redirect(url_for('index')) 
+            return redirect(url_for('index',id=user_id)) 
         else:
             error="Invalid Password"
             return render_template('login.html' , error_message=error)
@@ -45,12 +46,14 @@ def register_user():
     return render_template('register.html' , disp_message="Registered Successfully" , val=1)
 
 @app.route('/index')#/<int:user_id>
-def index():#user_id
+def index(u_id):#user_id
     #st=select(Todo).where(Todo.userid==user_id)
     #result = db.session.execute(st)
     #todos = result.all()
     #print(todos)
-    todos = Todo.query.all()
+    todos = Todo.query.filter_by(id=u_id).all()
+    #todos = Todo.query.all()
+    
     return render_template('index.html', todos=todos)
 
 @app.route('/add', methods=['POST'])
