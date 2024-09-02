@@ -31,7 +31,7 @@ body {
 .register-container input[type="email"],
 .register-container input[type="password"] {
     padding: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
     font-size: 16px;
@@ -45,12 +45,28 @@ body {
     color: white;
     font-size: 16px;
     cursor: pointer;
+    margin-bottom: 10px;
 }
 
 .register-container button:hover {
     background-color: #0056b3;
 }
 
+.register-container .login {
+    width: 100%;
+    padding: 10px;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.register-container .login:hover {
+    background-color: #0056b3;
+}
 .register-container .error_message {
     text-align: center;
     background-color: #f4d0d0;

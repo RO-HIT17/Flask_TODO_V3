@@ -16,7 +16,7 @@
             {{ disp_message }}
         </div>
         {% endif %}
-        
+
         {% if error_message %}
         <div class="error_message">
             {{ error_message }}
@@ -31,9 +31,8 @@
             <button type="submit">Register</button>
         </form>
         
-        <br>
         {% if val %}
-        <a href="{{ url_for('main') }}"><button>Login</button></a>
+        <a href="{{ url_for('main') }}"><button class = "login">Login</button></a>
         {% endif %}
     </div>
 
