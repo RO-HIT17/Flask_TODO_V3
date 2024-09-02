@@ -19,11 +19,11 @@ def login():
     user_email=request.form.get('username') 
     password=request.form.get('password')
     result = User.query.filter_by(email=user_email).first()
-    #print(result)
     if result:
         passkey= result.password
         user_id=result.user_id
         print(passkey,user_id)
+        print("test")
         if passkey==password:
             return redirect(url_for('index',user_id=user_id)) 
         else:
@@ -103,3 +103,4 @@ if __name__ == '__main__':
 #         db.session.delete(todo)
 #         db.session.commit()
 #     return redirect(url_for('index'))
+#testcmt
