@@ -41,6 +41,18 @@ def register():
 def forgot_password():
     return render_template('forgot_password.html')
 
+@app.route('/reset' , methods=['POST'])
+def reset_password():
+    email=request.form.get('email')
+    new_password=request.form.get('newpassword')
+    update=User.query.get(email)
+    print(update)
+    if update:
+        update.password=new_password
+        db.session.commit()
+        return redirect(url_for('main'))
+    #return render_template('forgot_password.html')
+
 @app.route('/register', methods=['GET','POST'])
 def register_user():
     name=request.form.get('name')
