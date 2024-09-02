@@ -42,10 +42,14 @@ def register_user():
     name=request.form.get('name')
     email=request.form.get('email')
     password=request.form.get('password')
-    new_user=User(name=name,email=email,password=password)
-    db.session.add(new_user)
-    db.session.commit()
-    return render_template('register.html' , disp_message="Registered Successfully" , val=1)
+    result = User.query.filter_by(email=email).first()
+    if not result:
+        new_user=User(name=name,email=email,password=password)
+        db.session.add(new_user)
+        db.session.commit()
+        return render_template('register.html' , disp_message="Registered Successfully" , val=1)
+    else:
+        return render_template('register.html' , error_message="User Already Exists",val=1)
 
 @app.route('/index')#/<int:user_id>
 def index(u_id):#user_id

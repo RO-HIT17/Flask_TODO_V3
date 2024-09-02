@@ -16,7 +16,12 @@
             {{ disp_message }}
         </div>
         {% endif %}
-        
+        {% if error_message %}
+        <div class="error_message">
+            {{ error_message }}
+        </div>
+        {% endif %}
+
 
         <form action="{{ url_for('register_user') }}" method="POST">
             <input type="text" name="name" placeholder="Full Name" required>
