@@ -25,7 +25,7 @@ def login():
         user_id=result.user_id
         print(passkey,user_id)
         if passkey==password:
-            return redirect(url_for('index',id=user_id)) 
+            return redirect(url_for('index',user_id=user_id)) 
         else:
             error="Invalid Password"    
             return render_template('login.html' , error_message=error)
