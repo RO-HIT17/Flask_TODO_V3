@@ -51,14 +51,9 @@ def register_user():
     else:
         return render_template('register.html' , error_message="User Already Exists",val=1)
 
-@app.route('/index/<int:user_id>')#/<int:user_id>
-def index(user_id):#user_id
-    #st=select(Todo).where(Todo.userid==user_id)
-    #result = db.session.execute(st)
-    #todos = result.all()
-    #print(todos)
+@app.route('/index/<int:user_id>')
+def index(user_id):
     todos = Todo.query.filter_by(user_id=user_id).all()
-    #todos = Todo.query.all()
     return render_template('index.html', todos=todos,user_id=user_id)
 
 @app.route('/add/<int:user_id>', methods=['POST'])
