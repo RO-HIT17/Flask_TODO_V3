@@ -68,25 +68,25 @@ def add_todo(user_id):
         new_todo = Todo(title=title,user_id=user_id)
         db.session.add(new_todo)
         db.session.commit()
-    return redirect(url_for('index'))
+    return redirect(url_for('index',user_id=user_id)) 
 
 #Own Function
-@app.route('/clear')
+@app.route('/clear/<int:user_id>')
 def clear_all():
     todo_lst=Todo.query.all()
     for i in todo_lst:
         if i.completed == True:
             db.session.delete(i)
     db.session.commit()
-    return redirect(url_for('index'))
+    return redirect(url_for('index',user_id=user_id)) 
 
-@app.route('/complete/<int:todo_id>')
+@app.route('/complete/<int:user_id>/<int:todo_id>')
 def complete_todo(todo_id):
     todo = Todo.query.get(todo_id)
     if todo:
         todo.completed = not todo.completed
         db.session.commit()
-    return redirect(url_for('index'))
+    return redirect(url_for('index',user_id=user_id)) 
 
 if __name__ == '__main__':
     app.run(debug=True)
