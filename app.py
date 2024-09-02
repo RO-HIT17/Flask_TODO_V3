@@ -99,4 +99,3 @@ if __name__ == '__main__':
 #         db.session.delete(todo)
 #         db.session.commit()
 #     return redirect(url_for('index'))
-#vjk_commit
