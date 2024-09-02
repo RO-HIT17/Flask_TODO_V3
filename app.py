@@ -27,7 +27,7 @@ def login():
         if passkey==password:
             return redirect(url_for('index',id=user_id)) 
         else:
-            error="Invalid Password"
+            error="Invalid Password"    
             return render_template('login.html' , error_message=error)
     else:
         error="Username unavailable"
@@ -51,17 +51,17 @@ def register_user():
     else:
         return render_template('register.html' , error_message="User Already Exists",val=1)
 
-@app.route('/index')#/<int:user_id>
-def index(u_id):#user_id
+@app.route('/index/<int:user_id>')#/<int:user_id>
+def index(user_id):#user_id
     #st=select(Todo).where(Todo.userid==user_id)
     #result = db.session.execute(st)
     #todos = result.all()
     #print(todos)
-    todos = Todo.query.filter_by(user_id=u_id).all()
+    todos = Todo.query.filter_by(user_id=user_id).all()
     #todos = Todo.query.all()
     return render_template('index.html', todos=todos)
 
-@app.route('/add', methods=['POST'])
+@app.route('/add/<int:user_id>', methods=['POST'])
 def add_todo():
     title = request.form.get('title')
     if title:
