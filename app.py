@@ -19,9 +19,11 @@ def login():
     user_email=request.form.get('username') 
     password=request.form.get('password')
     result = User.query.filter_by(email=user_email).first()
+    #print(result)
     if result:
         passkey= result.password
-        user_id=result.id
+        user_id=result.user_id
+        print(passkey,user_id)
         if passkey==password:
             return redirect(url_for('index',id=user_id)) 
         else:
@@ -51,9 +53,8 @@ def index(u_id):#user_id
     #result = db.session.execute(st)
     #todos = result.all()
     #print(todos)
-    todos = Todo.query.filter_by(id=u_id).all()
+    todos = Todo.query.filter_by(user_id=u_id).all()
     #todos = Todo.query.all()
-    
     return render_template('index.html', todos=todos)
 
 @app.route('/add', methods=['POST'])
