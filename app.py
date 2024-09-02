@@ -59,13 +59,13 @@ def index(user_id):#user_id
     #print(todos)
     todos = Todo.query.filter_by(user_id=user_id).all()
     #todos = Todo.query.all()
-    return render_template('index.html', todos=todos)
+    return render_template('index.html', todos=todos,user_id=user_id)
 
 @app.route('/add/<int:user_id>', methods=['POST'])
-def add_todo():
+def add_todo(user_id):
     title = request.form.get('title')
     if title:
-        new_todo = Todo(title=title)
+        new_todo = Todo(title=title,user_id=user_id)
         db.session.add(new_todo)
         db.session.commit()
     return redirect(url_for('index'))
