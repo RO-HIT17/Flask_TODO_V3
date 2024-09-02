@@ -50,7 +50,7 @@ def reset_password():
     if update:
         update.password=new_password
         db.session.commit()
-        return render_template('forgot_password.html')
+        return render_template('forgot_password.html', message="Password Changed Successfully",val=1)
     #return render_template('forgot_password.html')
 
 @app.route('/register', methods=['GET','POST'])
