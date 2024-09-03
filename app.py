@@ -91,8 +91,9 @@ def index(user_id):
 @app.route('/add/<int:user_id>', methods=['POST'])
 def add_todo(user_id):
     title = request.form.get('title')
+    priority=request.form.get('priority')
     if title:
-        new_todo = Todo(title=title,user_id=user_id)
+        new_todo = Todo(title=title,user_id=user_id,priority=priority)
         db.session.add(new_todo)
         db.session.commit()
     return redirect(url_for('index',user_id=user_id)) 

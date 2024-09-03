@@ -16,6 +16,15 @@ body {
     left: 20px; 
     z-index: 1000;
 }
+.priority-dropdown {
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    padding: 10px;
+    margin: 10px 0;
+    margin-left: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
 .container {
     width: 50%;
     margin: 50px auto;
@@ -29,11 +38,112 @@ h1 {
 }
 
 input[type="text"] {
-    width: 96%;
+    width: 50%;
     padding: 10px;
     margin: 5px 0;
     border: 1px solid #ddd;
     border-radius: 4px;
+}
+/* Container for the todo list */
+.todo-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    border-collapse: collapse; /* Ensures no spacing between cells */
+}
+
+/* Style for each list item */
+.todo-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd; /* Light gray border */
+}
+
+/* Style for the header row */
+.todo-header {
+    display: flex;
+    justify-content: center; /* Center align the headers */
+    align-items: center;
+    padding: 10px;
+    background-color: #f7f7f7; /* Light grey background */
+    border-bottom: 2px solid #ddd; /* Slightly darker gray border */
+    font-weight: bold;
+}
+
+/* Style for header items */
+.header-item, .header-priority {
+    padding: 5px 10px;
+    color: #333;
+    text-align: center; /* Center align text in header items */
+    width: 100%; /* Make header items take up full width */
+}
+
+/* Style for the item and priority text */
+.item-text, .item-priority {
+    padding: 5px 10px;
+    color: #333;
+}
+
+/* Style for the priority item */
+.item-priority {
+    background-color: #f0f0f0; /* Grey background for priority */
+    border-radius: 4px;
+    text-align: center;
+    width: 100px; /* Fixed width for consistency */
+}
+
+/* Container for the todo list */
+.todo-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    border-collapse: collapse; /* Ensures no spacing between cells */
+}
+
+/* Style for each list item */
+.todo-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd; /* Light gray border */
+
+}
+
+/* Style for the header row */
+.todo-header {
+    display: flex;
+    justify-content: center; /* Center align the headers */
+    align-items: center;
+    padding: 10px;
+    background-color: #f7f7f7; /* Light grey background */
+    border-bottom: 2px solid #ddd; /* Slightly darker gray border */
+    font-weight: bold;
+}
+
+/* Style for header items */
+.header-item, .header-priority {
+    padding: 5px 10px;
+    color: #333;
+    text-align: center; /* Center align text in header items */
+    width: 100%; /* Make header items take up full width */
+}
+
+/* Style for the item and priority text */
+.item-text, .item-priority {
+    padding: 5px 10px;
+    color: #333;
+    width:50%;
+}
+
+/* Style for the priority item */
+.item-priority {
+    background-color: #f0f0f0; /* Grey background for priority */
+    border-radius: 4px;
+    text-align: center;
+    width: 100px; /* Fixed width for consistency */
 }
 
 button.text1 {

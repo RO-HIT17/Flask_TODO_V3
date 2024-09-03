@@ -4,25 +4,39 @@
 <h1>TODO List</h1>
 <form action="{{ url_for('add_todo' , user_id=user_id) }}" method="POST">
     <input type="text" name="title" placeholder="Enter a new task" autofocus>
+    <label for="priority">Priority:</label>
+    <select name="priority" class="priority-dropdown">
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+    </select>
     <button type="submit" class ="add">Add Items</button>
 </form>
 <a href="{{ url_for('clear_all',user_id=user_id) }}"><button class="clear">Clear Completed Items</button></a>
 <!--Modified-->
-<ul>
+<ul class="todo-list">
+    <li class="todo-header">
+        <div class="header-item">Item</div>
+        <div class="header-priority">Priority</div>
+    </li>
     {% for todo in todos %} 
-    <li>
-        <a href="{{ url_for('complete_todo', todo_id=todo.todo_id,user_id=user_id) }}">
+    <li class="todo-item">
+        <a href="{{ url_for('complete_todo', todo_id=todo.todo_id, user_id=user_id) }}">
             <button class="text1">
-            {% if todo.completed %}
-            <strike>{{ todo.title }}</strike>
-            {% else %}
-            {{ todo.title }}
-            {% endif %}
-            </button>
+            <div class="item-text">
+                {% if todo.completed %}
+                <strike>{{ todo.title }}</strike>
+                {% else %}
+                {{ todo.title }}
+                {% endif %}
+            </div>
+        </button>
         </a>
-        
+        <div class="item-priority">{{ todo.priority }}</div>
+    </li>
     {% endfor %}
 </ul>
+
 
 {% endblock %}
 
