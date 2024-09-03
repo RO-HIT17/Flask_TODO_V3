@@ -40,6 +40,10 @@ def register():
 def forgot_password():
     return render_template('forgot_password.html')
 
+@app.route('/dashboard')
+def dashboard():
+    return render_template('dashboard.html')
+
 @app.route('/reset' , methods=['POST'])
 def reset_password():
     email=request.form.get('email')

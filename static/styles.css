@@ -10,6 +10,12 @@ body {
     right: 20px; 
     z-index: 1000;
 }
+.dashboard-container{
+    position: fixed; 
+    top: 20px; 
+    left: 20px; 
+    z-index: 1000;
+}
 .container {
     width: 50%;
     margin: 50px auto;
@@ -52,9 +58,20 @@ button.logout {
     border-radius: 4px;
     cursor: pointer;
 }
-
+button.dashboard {
+    margin: 5px 0;
+    padding: 10px;
+    background-color: #2c49d8; 
+    color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+}
 button.logout:hover {
     background-color: #c82333; 
+}
+button.dashboard:hover{
+    background-color: #2356cd; 
 }
 button.add {
     background-color: #28a745;
