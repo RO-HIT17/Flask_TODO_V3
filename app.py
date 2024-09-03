@@ -98,7 +98,7 @@ def add_todo(user_id):
 
 @app.route('/clear/<int:user_id>')
 def clear_all(user_id):
-    todo_lst=Todo.query.all()
+    todo_lst=Todo.query.filter_by(user_id=user_id).all()
     for i in todo_lst:
         if i.completed == True:
             db.session.delete(i)
