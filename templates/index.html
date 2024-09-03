@@ -32,7 +32,10 @@
             </div>
         </button>
         </a>
-        <div class="item-priority">{{ todo.priority }}</div>
+        <div class="item-priority {% if todo.priority == 'Low' %}low{% elif todo.priority == 'Medium' %}medium{% elif todo.priority == 'High' %}high{% endif %}">
+            {{ todo.priority }}
+        </div>
+        
     </li>
     {% endfor %}
 </ul>
