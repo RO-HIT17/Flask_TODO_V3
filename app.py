@@ -1,6 +1,5 @@
 from flask import redirect,url_for,render_template,request,Flask
 from models import db,Todo,User
-from sqlalchemy import select
 
 app=Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///todos.db'
@@ -22,7 +21,6 @@ def login():
     if result:
         passkey= result.password
         user_id=result.user_id
-        #print(passkey,user_id)
         if passkey==password:
             return redirect(url_for('index',user_id=user_id)) 
         else:
@@ -76,7 +74,7 @@ def register_user():
         else:
             return render_template('register.html' , error_message="User Already Exists",val=1)
     else:
-        return render_template('register.html' , error_message="Password Didn't Match",val=1)
+        return render_template('register.html' , error_message="Password Didn't Match",val=0)
 @app.route('/index/<int:user_id>')
 def index(user_id):
     todos = Todo.query.filter_by(user_id=user_id).all()

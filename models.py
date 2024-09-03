@@ -16,5 +16,6 @@ class User(db.Model):
     fname=db.Column(db.String(20))
     lname=db.Column(db.String(20))
     email = db.Column(db.String(120),unique=True)
+    phone=db.Column(db.String(10))
     password= db.Column(db.String(20))
     
