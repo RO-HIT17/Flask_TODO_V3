@@ -7,9 +7,15 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
 </head>
 <body>
+    <div class="button-container">
+        <a href="{{ url_for('index', user_id=data.user_id) }}"><button class="todo">Todo List</button></a>
+        <a href="{{ url_for('main') }}"><button class="logout">Logout</button></a>
+    </div>
+    <br><br>
     <div class="dashboard-container">
         <div class="user-info">
             <h1>User Dashboard</h1>
+            <h1>{{"Hi " + data.fname}}</h1>
             <p id="user-name">{{data.fname + " " + data.lname}}</p>
             <p id="user-email">{{data.email}}</p>
         </div>
@@ -17,11 +23,11 @@
         <div class="stats-overview">
             <div class="stat-item">
                 <h2>Total Tasks Completed</h2>
-                <p id="total-completed">{{len}}</p>
+                <p id="total-completed">{{com}}</p>
             </div>
             <div class="stat-item">
                 <h2>Pending Tasks</h2>
-                <p id="pending-tasks">{{com}}</p>
+                <p id="pending-tasks">{{len-com}}</p>
             </div>
             <div class="stat-item">
                 <h2>Completion Rate</h2>
@@ -37,13 +43,11 @@
         <div class="recent-activity">
             <h2>Recent Activity</h2>
             <ul id="recent-activity-list">
-                {%for todo in comdata%}
-                <li>{{todo.title}}</li>
-                {%endfor%}
+                {% for todo in comdata %}
+                <li>{{"Completed: " + todo.title}}</li>
+                {% endfor %}
             </ul>
         </div>
     </div>
-
-    
 </body>
 </html>
