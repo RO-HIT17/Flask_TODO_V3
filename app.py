@@ -38,16 +38,16 @@ def register():
 def forgot_password():
     return render_template('forgot_password.html')
 
-@app.route('/dashboard')
-def dashboard():
-    return render_template('dashboard.html')
+@app.route('/dashboard/<int:user_id>')
+def dashboard(user_id):
+    data=User.query.filter_by(user_id=user_id).first()
+    return render_template('dashboard.html',data=data)
 
 @app.route('/reset' , methods=['POST'])
 def reset_password():
     email=request.form.get('email')
     new_password=request.form.get('newpassword')
     update=User.query.filter_by(email=email).first()
-    #print(update)
     if update:
         update.password=new_password
         db.session.commit()
@@ -76,6 +76,7 @@ def register_user():
             return render_template('register.html' , error_message="User Already Exists",val=1)
     else:
         return render_template('register.html' , error_message="Password Didn't Match",val=0)
+
 @app.route('/index/<int:user_id>')
 def index(user_id):
     todos = Todo.query.filter_by(user_id=user_id).all()
