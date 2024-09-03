@@ -45,8 +45,9 @@ def dashboard(user_id):
     todolist2 = Todo.query.filter_by(user_id=user_id).filter_by(completed=True).all()
     tasks=len(todolist1)
     comp=len(todolist2)
+    per=(comp*100)//tasks 
     #print(todolst,tasks)
-    return render_template('dashboard.html',data=data,len=tasks,com=comp,comdata=todolist2)
+    return render_template('dashboard.html',data=data,len=tasks,com=comp,comdata=todolist2,per=per)
 
 @app.route('/reset' , methods=['POST'])
 def reset_password():
