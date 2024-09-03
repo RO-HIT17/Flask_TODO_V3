@@ -81,9 +81,16 @@ input[type="text"] {
 }
 
 /* Style for the item and priority text */
-.item-text, .item-priority {
-    padding: 5px 10px;
-    color: #333;
+.item-text {
+    flex-grow: 1;
+    font-size: 1.2em;
+    color: #2c3e50;
+    font-family: 'Poppins', sans-serif;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 /* Style for the priority item */
@@ -131,20 +138,50 @@ input[type="text"] {
     width: 100%; /* Make header items take up full width */
 }
 
-/* Style for the item and priority text */
-.item-text, .item-priority {
-    padding: 5px 10px;
-    color: #333;
-    width:50%;
+.item-text {
+    flex-grow: 1;
 }
 
-/* Style for the priority item */
+/* Container that holds the priority buttons */
 .item-priority {
-    background-color: #f0f0f0; /* Grey background for priority */
+    min-width: 100px;
+    display: flex;
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    padding: 5px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+/* Priority Button Styles */
+.low {
+    background-color: #2ecc71;
+    color: white;
+    display: inline-block;
+    padding: 10px 20px;
     border-radius: 4px;
     text-align: center;
-    width: 100px; /* Fixed width for consistency */
 }
+
+.medium {
+    background-color: #f39c12;
+    color: white;
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.high {
+    background-color: #e74c3c;
+    color: white;
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+
 
 button.text1 {
     margin: 5px 0;
