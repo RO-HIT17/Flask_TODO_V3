@@ -85,7 +85,7 @@ def register_user():
 
 @app.route('/index/<int:user_id>')
 def index(user_id):
-    todos = Todo.query.filter_by(user_id=user_id).all()
+    todos = Todo.query.filter_by(user_id=user_id).filter_by(clear=False).all()
     return render_template('index.html', todos=todos,user_id=user_id)
 
 @app.route('/add/<int:user_id>', methods=['POST'])
@@ -102,7 +102,7 @@ def clear_all(user_id):
     todo_lst=Todo.query.filter_by(user_id=user_id).all()
     for i in todo_lst:
         if i.completed == True:
-            db.session.delete(i)
+            i.clear=True
     db.session.commit()
     return redirect(url_for('index',user_id=user_id)) 
 
