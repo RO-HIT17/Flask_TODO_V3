@@ -22,15 +22,14 @@ def login():
     if result:
         passkey= result.password
         user_id=result.user_id
-        print(passkey,user_id)
-        print("test")
+        #print(passkey,user_id)
         if passkey==password:
             return redirect(url_for('index',user_id=user_id)) 
         else:
             error="Invalid Password"    
             return render_template('login.html' , error_message=error)
     else:
-        error="Username unavailable"
+        error="Username not registered"
         return render_template('login.html' , error_message=error)
         
 @app.route('/new')
@@ -40,6 +39,20 @@ def register():
 @app.route('/forgot')
 def forgot_password():
     return render_template('forgot_password.html')
+
+@app.route('/reset' , methods=['POST'])
+def reset_password():
+    email=request.form.get('email')
+    new_password=request.form.get('newpassword')
+    update=User.query.filter_by(email=email).first()
+    #print(update)
+    if update:
+        update.password=new_password
+        db.session.commit()
+        return render_template('forgot_password.html', message="Password Changed Successfully",val=1)
+    else:
+        error="Username not registered"
+        return render_template('forgot_password.html', er_message=error,val=1)
 
 @app.route('/register', methods=['GET','POST'])
 def register_user():
@@ -69,7 +82,6 @@ def add_todo(user_id):
         db.session.commit()
     return redirect(url_for('index',user_id=user_id)) 
 
-#Own Function
 @app.route('/clear/<int:user_id>')
 def clear_all(user_id):
     todo_lst=Todo.query.all()
@@ -103,4 +115,3 @@ if __name__ == '__main__':
 #         db.session.delete(todo)
 #         db.session.commit()
 #     return redirect(url_for('index'))
-#testcmt

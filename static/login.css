@@ -8,6 +8,15 @@ body {
     margin: 0;
 }
 
+header {
+    text-align: center;
+    margin-bottom: 1px;
+}
+
+header .h1 {
+    color: #333;
+}
+
 .login-container {
     background-color: #ffffff;
     padding: 20px;
@@ -51,10 +60,12 @@ body {
 }
 
 .login-container .error-message {
-    color: red;
-    font-size: 14px;
-    margin-bottom: 15px;
     text-align: center;
+    background-color: #f4d0d0;
+    color: rgb(223, 71, 71);
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
 }
 
 .login-container .signup-link {
