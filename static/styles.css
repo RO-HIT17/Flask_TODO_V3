@@ -234,6 +234,23 @@ button.add {
 button.add:hover {
     background-color: #218838;
 }
+.prioritytext{
+    margin-left: 10px;
+}
+button.filter {
+    background-color: #287da7;
+    color: white;
+    cursor: pointer;
+    width: 30%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+button.filter:hover {
+    background-color: #214f88;
+}
 
 button.clear{ 
     padding: 10px;

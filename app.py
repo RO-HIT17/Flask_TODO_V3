@@ -92,6 +92,13 @@ def index(user_id):
     todos = Todo.query.filter_by(user_id=user_id).filter_by(clear=False).all()
     return render_template('index.html', todos=todos,user_id=user_id)
 
+@app.route('/filter/<int:user_id>',methods=['POST'])
+def filter(user_id):
+    priority=request.form.get('priority1')
+    #print(priority)
+    todos = Todo.query.filter_by(user_id=user_id).filter_by(clear=False).filter_by(priority=priority).all()
+    return render_template('index.html', todos=todos,user_id=user_id)
+
 @app.route('/add/<int:user_id>', methods=['POST'])
 def add_todo(user_id):
     title = request.form.get('title')

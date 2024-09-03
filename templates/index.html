@@ -13,6 +13,17 @@
     <button type="submit" class ="add">Add Items</button>
 </form>
 <a href="{{ url_for('clear_all',user_id=user_id) }}"><button class="clear">Clear Completed Items</button></a>
+<form action="{{ url_for('filter', user_id=user_id) }}" method="POST">  
+
+<button class="filter" type="submit">Filter By</button>
+<label for="priority1" class="prioritytext">Priority:</label>
+<select name="priority1" class="priority-dropdown">
+    <option value="Low">Low</option>
+    <option value="Medium">Medium</option>
+    <option value="High">High</option>
+</select>
+</form>
+
 <!--Modified-->
 <ul class="todo-list">
     <li class="todo-header">
