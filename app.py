@@ -56,18 +56,23 @@ def reset_password():
 
 @app.route('/register', methods=['GET','POST'])
 def register_user():
-    name=request.form.get('name')
+    fname=request.form.get('fname')
+    lname=request.form.get('lname')
     email=request.form.get('email')
     password=request.form.get('password')
-    result = User.query.filter_by(email=email).first()
-    if not result:
-        new_user=User(name=name,email=email,password=password)
-        db.session.add(new_user)
-        db.session.commit()
-        return render_template('register.html' , disp_message="Registered Successfully" , val=1)
+    cmfmpass=request.form.get('cmfmpass')
+    if password==cmfmpass:
+    
+        result = User.query.filter_by(email=email).first()
+        if not result:
+            new_user=User(fname=fname,lname=lname,email=email,password=password)
+            db.session.add(new_user)
+            db.session.commit()
+            return render_template('register.html' , disp_message="Registered Successfully" , val=1)
+        else:
+            return render_template('register.html' , error_message="User Already Exists",val=1)
     else:
-        return render_template('register.html' , error_message="User Already Exists",val=1)
-
+        return render_template('register.html' , error_message="Password Didn't Match",val=1)
 @app.route('/index/<int:user_id>')
 def index(user_id):
     todos = Todo.query.filter_by(user_id=user_id).all()
