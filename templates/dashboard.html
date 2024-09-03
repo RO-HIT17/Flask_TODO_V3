@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - To-Do List</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="user-info">
+            <h1>User Dashboard</h1>
+            <p id="user-name">John Doe</p>
+            <p id="user-email">john.doe@example.com</p>
+        </div>
+
+        <div class="stats-overview">
+            <div class="stat-item">
+                <h2>Total Tasks Completed</h2>
+                <p id="total-completed">120</p>
+            </div>
+            <div class="stat-item">
+                <h2>Pending Tasks</h2>
+                <p id="pending-tasks">15</p>
+            </div>
+            <div class="stat-item">
+                <h2>Completion Rate</h2>
+                <p id="completion-rate">89%</p>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <h2>Task History</h2>
+            <canvas id="taskHistoryChart"></canvas>
+        </div>
+
+        <div class="recent-activity">
+            <h2>Recent Activity</h2>
+            <ul id="recent-activity-list">
+                <li>Completed: "Finish project report" on 2024-09-01</li>
+                <li>Completed: "Buy groceries" on 2024-08-30</li>
+                <li>Completed: "Read book chapter 5" on 2024-08-28</li>
+            </ul>
+        </div>
+    </div>
+
+    
+</body>
+</html>
