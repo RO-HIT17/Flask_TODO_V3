@@ -111,6 +111,7 @@ def complete_todo(user_id,todo_id):
 if __name__ == '__main__':
     app.run(debug=True)
 
+#comment
 
 #@app._got_first_request
 #def create_tables():
