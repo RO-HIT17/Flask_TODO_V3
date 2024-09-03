@@ -62,12 +62,13 @@ def register_user():
     lname=request.form.get('lname')
     email=request.form.get('email')
     password=request.form.get('password')
-    cmfmpass=request.form.get('cmfmpass')
-    if password==cmfmpass:
+    phone=request.form.get('phone')
+    confirm_pass=request.form.get('confirm_pass')
     
+    if password==confirm_pass:
         result = User.query.filter_by(email=email).first()
         if not result:
-            new_user=User(fname=fname,lname=lname,email=email,password=password)
+            new_user=User(fname=fname,lname=lname,email=email,phone=phone,password=password)
             db.session.add(new_user)
             db.session.commit()
             return render_template('register.html' , disp_message="Registered Successfully" , val=1)
