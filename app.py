@@ -43,6 +43,7 @@ def dashboard(user_id):
     data=User.query.filter_by(user_id=user_id).first()
     todolist1 = Todo.query.filter_by(user_id=user_id).all()
     todolist2 = Todo.query.filter_by(user_id=user_id).filter_by(completed=True).all()
+    todolist3 = Todo.query.filter_by(user_id=user_id).filter_by(completed=False).all()
     tasks=len(todolist1)
     comp=len(todolist2)
     if tasks!=0:
@@ -50,7 +51,7 @@ def dashboard(user_id):
     else:
         per=0
     #print(todolst,tasks)
-    return render_template('dashboard.html',data=data,len=tasks,com=comp,comdata=todolist2,per=per)
+    return render_template('dashboard.html',data=data,len=tasks,com=comp,comdata=todolist2,per=per,todolist3=todolist3)
 
 @app.route('/reset' , methods=['POST'])
 def reset_password():
