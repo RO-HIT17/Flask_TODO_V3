@@ -56,12 +56,13 @@ def reset_password():
 
 @app.route('/register', methods=['GET','POST'])
 def register_user():
-    name=request.form.get('name')
+    fname=request.form.get('fname')
+    lname=request.form.get('lname')
     email=request.form.get('email')
     password=request.form.get('password')
     result = User.query.filter_by(email=email).first()
     if not result:
-        new_user=User(name=name,email=email,password=password)
+        new_user=User(fname=fname,lname=lname,email=email,password=password)
         db.session.add(new_user)
         db.session.commit()
         return render_template('register.html' , disp_message="Registered Successfully" , val=1)
