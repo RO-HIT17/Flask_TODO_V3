@@ -94,5 +94,3 @@ This is a simple To-Do List Manager web application built using Flask. The appli
 
 ## Contributing
 Contributions are welcome! Please submit a pull request or open an issue to suggest improvements.
-
-```
