@@ -41,7 +41,12 @@ def forgot_password():
 @app.route('/dashboard/<int:user_id>')
 def dashboard(user_id):
     data=User.query.filter_by(user_id=user_id).first()
-    return render_template('dashboard.html',data=data)
+    todolist1 = Todo.query.filter_by(user_id=user_id).all()
+    todolist2 = Todo.query.filter_by(user_id=user_id).filter_by(completed=True).all()
+    tasks=len(todolist1)
+    comp=len(todolist2)
+    #print(todolst,tasks)
+    return render_template('dashboard.html',data=data,len=tasks,com=comp,comdata=todolist2)
 
 @app.route('/reset' , methods=['POST'])
 def reset_password():
@@ -114,7 +119,6 @@ if __name__ == '__main__':
 #@app._got_first_request
 #def create_tables():
 #    db.create_all()
- 
 
 # @app.route('/delete/<int:todo_id>')
 # def delete_todo(todo_id):

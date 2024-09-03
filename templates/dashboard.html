@@ -17,15 +17,15 @@
         <div class="stats-overview">
             <div class="stat-item">
                 <h2>Total Tasks Completed</h2>
-                <p id="total-completed">120</p>
+                <p id="total-completed">{{len}}</p>
             </div>
             <div class="stat-item">
                 <h2>Pending Tasks</h2>
-                <p id="pending-tasks">15</p>
+                <p id="pending-tasks">{{com}}</p>
             </div>
             <div class="stat-item">
                 <h2>Completion Rate</h2>
-                <p id="completion-rate">89%</p>
+                <p id="completion-rate">{{com/len * 100}}%</p>
             </div>
         </div>
 
@@ -37,9 +37,9 @@
         <div class="recent-activity">
             <h2>Recent Activity</h2>
             <ul id="recent-activity-list">
-                <li>Completed: "Finish project report" on 2024-09-01</li>
-                <li>Completed: "Buy groceries" on 2024-08-30</li>
-                <li>Completed: "Read book chapter 5" on 2024-08-28</li>
+                {%for todo in comdata%}
+                <li>{{todo.title}}</li>
+                {%endfor%}
             </ul>
         </div>
     </div>
