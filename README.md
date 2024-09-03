@@ -12,6 +12,7 @@ This is a simple To-Do List Manager web application built using Flask. The appli
 - **Task History**: Users can view their task completion history.
 
 ## Project Structure
+```
 ├── app.py                  # The main application file with Flask routes
 ├── models.py               # The file defining the database models (User and Todo)
 ├── templates/              # Folder containing HTML templates
@@ -26,6 +27,7 @@ This is a simple To-Do List Manager web application built using Flask. The appli
 │   ├── dashboard.css       # Stylesheet for dashboard page
 │   ├── index.css           # Stylesheet for to-do list page
 └── README.md               # This README file
+```
 
 ## Installation
 
@@ -36,24 +38,34 @@ This is a simple To-Do List Manager web application built using Flask. The appli
 
 ### Steps
 1. Clone the repository:
+   ```bash
    git clone https://github.com/yourusername/todo-list-manager.git
    cd todo-list-manager
+   ```
 
 2. Create a virtual environment and activate it:
+   ```bash
    python3 -m venv venv
    source venv/bin/activate   # On Windows: venv\Scripts\activate
+   ```
 
 3. Install the dependencies:
+   ```bash
    pip install -r requirements.txt
+   ```
 
 4. Set up the SQLite database:
+   ```bash
    flask shell
    >>> from models import db
    >>> db.create_all()
    >>> exit()
+   ```
 
 5. Run the application:
+   ```bash
    flask run
+   ```
 
 6. Access the application in your web browser at `http://127.0.0.1:5000/`.
 
@@ -82,3 +94,5 @@ This is a simple To-Do List Manager web application built using Flask. The appli
 
 ## Contributing
 Contributions are welcome! Please submit a pull request or open an issue to suggest improvements.
+
+```
