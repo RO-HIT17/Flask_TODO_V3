@@ -1,5 +1,6 @@
 from flask import redirect,url_for,render_template,request,Flask
 from models import db,Todo,User
+from datetime import datetime
 
 app=Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///todos.db'
@@ -103,8 +104,10 @@ def filter(user_id):
 def add_todo(user_id):
     title = request.form.get('title')
     priority=request.form.get('priority')
+    deadline_str = request.form['deadline']  # Get the deadline from form input
+    deadline_date = datetime.strptime(deadline_str, "%Y-%m-%d").date()
     if title:
-        new_todo = Todo(title=title,user_id=user_id,priority=priority)
+        new_todo = Todo(title=title,user_id=user_id,priority=priority,deadline=deadline_date)
         db.session.add(new_todo)
         db.session.commit()
     return redirect(url_for('index',user_id=user_id)) 

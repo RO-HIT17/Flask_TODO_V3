@@ -278,4 +278,29 @@ strike {
         color: gray;
         background-color: #e9ecef;
  }
+.todo-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group-inline {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.form-group-inline label {
+    margin-left: 15px;
+    margin-right: 5px;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    margin-right: 5px;
+}
 

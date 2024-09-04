@@ -9,6 +9,7 @@ class Todo(db.Model):
     user_id=db.Column(db.Integer)
     clear=db.Column(db.Boolean,default=False)
     priority =db.Column(db.String(20))
+    deadline=db.Column(db.Date)
     
     def __repr__(self):
         return f"<Todo {self.title}>"
