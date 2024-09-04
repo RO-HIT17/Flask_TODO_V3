@@ -43,6 +43,9 @@
                 </div>
                 <p>{{per}}% Completed</p>
             </div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar">0%</div>
+            </div>
        <div class="recent-activity">
             <h2>Recent Activity</h2>
             <ul id="recent-activity-list">
@@ -60,5 +63,25 @@
             </ul>
         </div>
     </div>
+    <script>
+        function updateProgressBar(percentage) {
+            var progressBar = document.getElementById('progressBar');
+            progressBar.style.width = percentage + '%';
+            progressBar.innerHTML = percentage + '%';
+
+            if (percentage <= 25) {
+                progressBar.style.backgroundColor = 'red';
+            } else if (percentage > 25 && percentage <= 50) {
+                progressBar.style.backgroundColor = 'orange';
+            } else if (percentage > 50 && percentage <= 75) {
+                progressBar.style.backgroundColor = 'yellow';
+            } else {
+                progressBar.style.backgroundColor = 'green';
+            }
+        }
+
+        // Call the function with the value passed from Flask
+        updateProgressBar({{ per }});
+    </script>
 </body>
 </html>
