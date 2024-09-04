@@ -33,8 +33,16 @@
                 <h2>Completion Rate</h2>
                 <p id="completion-rate">{{per}}%</p>
             </div>
+            
         </div>
-
+        <br>
+            <div class="progress-container">
+                <h2>Task Completion Progress</h2>
+                <div class="progress-bar">
+                    <div class="progress" style="width: {{per}}%;"></div>
+                </div>
+                <p>{{per}}% Completed</p>
+            </div>
        <div class="recent-activity">
             <h2>Recent Activity</h2>
             <ul id="recent-activity-list">
