@@ -35,14 +35,6 @@
             </div>
             
         </div>
-        <br>
-            <div class="progress-container">
-                <h2>Task Completion Progress</h2>
-                <div class="progress-bar">
-                    <div class="progress" style="width: {{per}}%;"></div>
-                </div>
-                <p>{{per}}% Completed</p>
-            </div>
             <div class="progress-bar-container">
                 <div class="progress-bar" id="progressBar">0%</div>
             </div>
@@ -79,8 +71,6 @@
                 progressBar.style.backgroundColor = 'green';
             }
         }
-
-        // Call the function with the value passed from Flask
         updateProgressBar({{ per }});
     </script>
 </body>
