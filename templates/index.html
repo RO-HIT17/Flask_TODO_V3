@@ -25,7 +25,7 @@
 <a href="{{ url_for('clear_all',user_id=user_id) }}"><button class="clear">Clear Completed Items</button></a>
 <form action="{{ url_for('filter', user_id=user_id) }}" method="POST">  
 
-<button class="filter" type="submit">Filter By</button>
+<button class="filter" type="submit">Filter</button>
 <label for="priority1" class="prioritytext">Priority:</label>
 <select name="priority1" class="priority-dropdown">
     <option value="Low">Low</option>
