@@ -42,7 +42,7 @@
             <h2>Recent Activity</h2>
             <ul id="recent-activity-list">
                 {% for todo in comdata %}
-                <li>{{"Completed: " + todo.title}}</li>
+                <li>{{"Completed: ''" + todo.title + "'' at " + todo.completed_date}}</li>
                 {% endfor %}
             </ul>
         </div>
@@ -70,7 +70,7 @@
             } else {
                 progressBar.style.backgroundColor = 'green';
             }
-        }
+        } 
         updateProgressBar({{ per }});
     </script>
 </body>

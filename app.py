@@ -124,8 +124,13 @@ def clear_all(user_id):
 @app.route('/complete/<int:user_id>/<int:todo_id>')
 def complete_todo(user_id,todo_id):
     todo = Todo.query.get(todo_id)
+    now = datetime.now()
+    formatted_datetime = now.strftime('%d-%m-%Y %H:%M %p')
+    #print(formatted_datetime)
+   
     if todo:
         todo.completed = not todo.completed
+        todo.completed_date=formatted_datetime
         db.session.commit()
     return redirect(url_for('index',user_id=user_id)) 
 
