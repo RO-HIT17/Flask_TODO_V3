@@ -32,10 +32,10 @@
     <option value="Medium">Medium</option>
     <option value="High">High</option>
 </select>
+</form><br>
 <form action="{{ url_for('search', user_id=user_id) }}" method="GET" class="search-form">
     <input type="text" name="query" placeholder="Search tasks..." class="search-bar">
-    <button type="submit" class="search-btn">Search</button>
-</form>
+    <button type="submit" class="filter">Search</button>
 </form>
 <!--Modified-->
 <ul class="todo-list">
@@ -64,6 +64,7 @@
     </li>
     {% endfor %}
 </ul>
+
 
 
 {% endblock %}

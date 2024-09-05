@@ -140,8 +140,7 @@ def search(user_id):
         todos = Todo.query.filter(Todo.user_id == user_id, Todo.title.ilike(f'%{query}%')).all()
     else:
         todos = Todo.query.filter_by(user_id=user_id).all()
-    
-    return render_template('dashboard.html', todos=todos, query=query)
+    return render_template('index.html', todos=todos, query=query,user_id=user_id)
 
 @app.route('/complete/<int:user_id>/<int:todo_id>')
 def complete_todo(user_id,todo_id):
