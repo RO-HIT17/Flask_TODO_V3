@@ -128,6 +128,16 @@ def add_todo(user_id):
         db.session.commit()
     return redirect(url_for('index',user_id=user_id)) 
 
+@app.route('/delete/<int:user_id>/<int:todo_id>', methods=['GET'])
+def delete_todo(user_id, todo_id):
+    todo = Todo.query.get(todo_id)
+    
+    if todo:
+
+        db.session.delete(todo)
+        db.session.commit()
+    return redirect(url_for('index', user_id=user_id))
+
 @app.route('/clear/<int:user_id>')
 def clear_all(user_id):
     todo_lst=Todo.query.filter_by(user_id=user_id).all()
