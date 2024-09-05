@@ -1,0 +1,347 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #121212; /* Dark background color */
+    color: #e0e0e0; /* Light text color */
+    margin: 0;
+    padding: 0;
+}
+
+.logout-container {
+    position: fixed; 
+    top: 20px; 
+    right: 20px; 
+    z-index: 1000;
+}
+
+.dashboard-container {
+    position: fixed; 
+    top: 20px; 
+    left: 20px; 
+    z-index: 1000;
+}
+
+.priority-dropdown {
+    border-radius: 4px;
+    background-color: #1e1e1e; /* Darker background */
+    padding: 10px;
+    margin: 10px 0;
+    margin-left: 15px;
+    border: 1px solid #333; /* Darker border */
+    color: #e0e0e0; /* Light text color */
+}
+
+.container {
+    width: 50%;
+    margin: 50px auto;
+    padding: 20px;
+    background: #1e1e1e; /* Darker container background */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7); /* Darker shadow */
+}
+
+h1 {
+    margin-bottom: 20px;
+    color: #e0e0e0; /* Light text color */
+}
+
+input[type="text"] {
+    width: 50%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #333; /* Darker border */
+    border-radius: 4px;
+    background-color: #222; /* Darker background */
+    color: #e0e0e0; /* Light text color */
+}
+
+/* Container for the todo list */
+.todo-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    border-collapse: collapse; /* Ensures no spacing between cells */
+}
+
+/* Style for each list item */
+.todo-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #333; /* Darker border */
+    background-color: #1e1e1e; /* Darker background */
+}
+
+/* Style for the header row */
+.todo-header {
+    display: flex;
+    justify-content: center; /* Center align the headers */
+    align-items: center;
+    padding: 10px;
+    background-color: #121212; /* Darker header background */
+    border-bottom: 2px solid #333; /* Darker border */
+    font-weight: bold;
+    color: #e0e0e0; /* Light text color */
+}
+
+/* Style for header items */
+.header-item, .header-priority {
+    padding: 5px 10px;
+    color: #e0e0e0; /* Light text color */
+    text-align: center; /* Center align text in header items */
+    width: 100%; /* Make header items take up full width */
+}
+
+/* Style for the item and priority text */
+.item-text {
+    flex-grow: 1;
+    font-size: 1.2em;
+    color: #e0e0e0; /* Light text color */
+    background-color: #222; /* Darker background */
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Style for the priority item */
+.item-priority {
+    background-color: #333; /* Darker background */
+    color: #e0e0e0; /* Light text color */
+    border-radius: 4px;
+    text-align: center;
+    width: 100px; /* Fixed width for consistency */
+}
+
+/* Container for the todo list */
+.todo-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    border-collapse: collapse; /* Ensures no spacing between cells */
+}
+
+/* Style for each list item */
+.todo-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #333; /* Darker border */
+    background-color: #1e1e1e; /* Darker background */
+}
+
+/* Style for the header row */
+.todo-header {
+    display: flex;
+    justify-content: center; /* Center align the headers */
+    align-items: center;
+    padding: 10px;
+    background-color: #121212; /* Darker header background */
+    border-bottom: 2px solid #333; /* Darker border */
+    font-weight: bold;
+    color: #e0e0e0; /* Light text color */
+}
+
+/* Style for header items */
+.header-item, .header-priority {
+    padding: 5px 10px;
+    color: #e0e0e0; /* Light text color */
+    text-align: center; /* Center align text in header items */
+    width: 100%; /* Make header items take up full width */
+}
+
+.item-text {
+    flex-grow: 1;
+    color: #e0e0e0; /* Light text color */
+}
+
+/* Container that holds the priority buttons */
+.item-priority {
+    min-width: 100px;
+    display: flex;
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    padding: 5px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+/* Priority Button Styles */
+.low {
+    background-color: #27ae60; /* Dark green */
+    color: white;
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.medium {
+    background-color: #f39c12; /* Orange */
+    color: white;
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.high {
+    background-color: #c0392b; /* Dark red */
+    color: white;
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+/* Button styles */
+button.text1 {
+    margin: 5px 0;
+    padding: 10px;
+    background-color: #222; /* Darker background */
+    border: 1px solid #333; /* Darker border */
+    border-radius: 4px;
+    color: #e0e0e0; /* Light text color */
+    cursor: pointer;
+    width: 100%;
+}
+
+button.text1:hover {
+    background-color: #333; /* Darker on hover */
+}
+
+button.logout {
+    margin: 5px 0;
+    padding: 10px;
+    background-color: #c0392b; /* Dark red */
+    color: white;
+    border: 1px solid #333; /* Darker border */
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button.dashboard {
+    margin: 5px 0;
+    padding: 10px;
+    background-color: #2980b9; /* Darker blue */
+    color: white;
+    border: 1px solid #333; /* Darker border */
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button.logout:hover {
+    background-color: #e74c3c; /* Brighter dark red */
+}
+
+button.dashboard:hover {
+    background-color: #3498db; /* Brighter blue */
+}
+
+button.add {
+    background-color: #2ecc71; /* Dark green */
+    color: white;
+    cursor: pointer;
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #333; /* Darker border */
+    border-radius: 4px;
+}
+
+button.add:hover {
+    background-color: #27ae60; /* Brighter dark green */
+}
+
+button.filter {
+    background-color: #3498db; /* Darker blue */
+    color: white;
+    cursor: pointer;
+    width: 15%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #333; /* Darker border */
+    border-radius: 4px;
+}
+
+button.filter:hover {
+    background-color: #2980b9; /* Brighter blue */
+}
+
+button.clear {
+    padding: 10px;
+    background-color: #c0392b; /* Dark red */
+    color: white;
+    border-radius: 4px;
+    width: 100%;
+    margin: 5px 0;
+    border: 1px solid #333; /* Darker border */
+    border-radius: 4px;
+}
+
+button.clear:hover {
+    background-color: #e74c3c; /* Brighter dark red */
+}
+
+/* List styles */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* Strike-through text */
+strike {
+    text-decoration: line-through;
+    color: gray;
+    background-color: #333; /* Darker background */
+}
+
+/* Form styles */
+.todo-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group-inline {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.form-group-inline label {
+    margin-left: 15px;
+    margin-right: 5px;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    margin-right: 5px;
+}
+
+.header-item, .header-deadline, .header-priority {
+    color: #e0e0e0; /* Light text color */
+}
+
+.header-item button, 
+.header-deadline button, 
+.header-priority button {
+    color: #3498db; /* Customize text color */
+    border-bottom: 2px solid transparent;
+}
+
+.header-item button:hover, 
+.header-deadline button:hover, 
+.header-priority button:hover {
+    color: #2980b9; /* Darker color on hover */
+    border-bottom: 2px solid #3498db; /* Colored border */
+}
+
+.header-item button:focus, 
+.header-deadline button:focus, 
+.header-priority button:focus {
+    outline: none;
+    border-bottom: 2px solid #3498db; /* Focus indicator */
+}

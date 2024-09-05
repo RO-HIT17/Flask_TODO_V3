@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link id="light-theme" rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link id="dark-theme" rel="stylesheet" href="{{ url_for('static', filename='dark-index.css') }}" disabled>
     <title>TODO Application</title>
 </head>
 <body>
@@ -11,20 +12,53 @@
         <a href="{{ url_for('main') }}"><button class="logout">Logout</button></a>
     </div>
     <div class="dashboard-container">
-        <a href="{{ url_for('dashboard',user_id=user_id) }}"><button class="dashboard">Dashboard</button></a>
+        <a href="{{ url_for('dashboard', user_id=user_id) }}"><button class="dashboard">Dashboard</button></a>
     </div>
+    <button id="theme-toggle" class="toggle-theme">Switch to Dark Theme</button>
+
     <div class="container">
         {% block content %}{% endblock %}
     </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            const themeToggleButton = document.getElementById('theme-toggle');
+            const lightThemeLink = document.getElementById('light-theme');
+            const darkThemeLink = document.getElementById('dark-theme');
+
+            // Load saved theme preference from localStorage if available
+            if (localStorage.getItem('theme') === 'dark') {
+                darkThemeLink.removeAttribute('disabled');
+                lightThemeLink.setAttribute('disabled', 'disabled');
+                themeToggleButton.textContent = 'Switch to Light Theme';
+            }
+
+            themeToggleButton.addEventListener('click', function() {
+                if (darkThemeLink.disabled) {
+                    // Switch to dark theme
+                    darkThemeLink.removeAttribute('disabled');
+                    lightThemeLink.setAttribute('disabled', 'disabled');
+                    localStorage.setItem('theme', 'dark');
+                    themeToggleButton.textContent = 'Switch to Light Theme';
+                } else {
+                    // Switch to light theme
+                    lightThemeLink.removeAttribute('disabled');
+                    darkThemeLink.setAttribute('disabled', 'disabled');
+                    localStorage.setItem('theme', 'light');
+                    themeToggleButton.textContent = 'Switch to Dark Theme';
+                }
+            });
+
+            // Set default date
             var today = new Date();
             var day = String(today.getDate()).padStart(2, '0');
             var month = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-based in JavaScript
             var year = today.getFullYear();
-    
             var todayDate = year + '-' + month + '-' + day;
-            document.getElementById('deadlineDate').value = todayDate;
+            var deadlineDateInput = document.getElementById('deadlineDate');
+            if (deadlineDateInput) {
+                deadlineDateInput.value = todayDate;
+            }
         });
     </script>
 </body>
