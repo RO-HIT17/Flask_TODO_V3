@@ -133,6 +133,16 @@ def clear_all(user_id):
     db.session.commit()
     return redirect(url_for('index',user_id=user_id)) 
 
+@app.route('/search/<int:user_id>', methods=['GET'])
+def search(user_id):
+    query = request.args.get('query')
+    if query:
+        todos = Todo.query.filter(Todo.user_id == user_id, Todo.title.ilike(f'%{query}%')).all()
+    else:
+        todos = Todo.query.filter_by(user_id=user_id).all()
+    
+    return render_template('dashboard.html', todos=todos, query=query)
+
 @app.route('/complete/<int:user_id>/<int:todo_id>')
 def complete_todo(user_id,todo_id):
     todo = Todo.query.get(todo_id)
