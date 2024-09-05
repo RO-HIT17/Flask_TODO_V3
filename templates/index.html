@@ -18,26 +18,30 @@
 
     </div>
     
-    <button type="submit" class="add">Add Item</button>
+    <button type="submit" class="add">Add Task</button>
 </form>
 
 
-<a href="{{ url_for('clear_all',user_id=user_id) }}"><button class="clear">Clear Completed Items</button></a>
+<a href="{{ url_for('clear_all',user_id=user_id) }}"><button class="clear">Clear Completed Tasks</button></a>
 <form action="{{ url_for('filter', user_id=user_id) }}" method="POST">  
 
 <button class="filter" type="submit">Filter</button>
 <label for="priority1" class="prioritytext">Priority:</label>
 <select name="priority1" class="priority-dropdown">
+    <option value="">Any</option>
     <option value="Low">Low</option>
     <option value="Medium">Medium</option>
     <option value="High">High</option>
 </select>
-
+</form><br>
+<form action="{{ url_for('search', user_id=user_id) }}" method="GET" class="search-form">
+    <input type="text" name="query" placeholder="Search tasks..." class="search-bar">
+    <button type="submit" class="filter">Search</button>
 </form>
 <!--Modified-->
 <ul class="todo-list">
     <li class="todo-header">
-        <div class="header-item"><a href="{{url_for('sort', button ="Title" ,user_id=user_id) }}"><button>Item</button></a></div>
+        <div class="header-item"><a href="{{url_for('sort', button ="Title" ,user_id=user_id) }}"><button>Task</button></a></div>
         <div class="header-deadline"><a href="{{url_for('sort', button ="Deadline" ,user_id=user_id) }}"><button>Deadline</button></a></div>
         <div class="header-priority"><a href="{{url_for('sort', button ="Priority" ,user_id=user_id) }}"><button>Priority</button></a></div>
     </li>
@@ -57,10 +61,14 @@
         <div class="item-deadline">{{ todo.deadline }}</div> <!-- Moved Deadline here -->
         <div class="item-priority {% if todo.priority == 'Low' %}low{% elif todo.priority == 'Medium' %}medium{% elif todo.priority == 'High' %}high{% endif %}">
             {{ todo.priority }}
-        </div> <!-- Moved Priority here -->
+           
+        </div> 
+         <a href="{{ url_for('delete_todo', todo_id=todo.todo_id, user_id=user_id) }}" class="delete-btn">
+            <i class="fas fa-trash-alt"></i></a><!-- Moved Priority here -->
     </li>
     {% endfor %}
 </ul>
+
 
 
 {% endblock %}

@@ -251,6 +251,18 @@ button.filter {
 button.filter:hover {
     background-color: #214f88;
 }
+.delete-btn {
+    color: red;
+    text-decoration: none;
+    margin-left: 10px;
+    font-size: 18px;
+}
+
+.delete-btn:hover {
+    color: darkred;
+    text-decoration: none;
+    cursor: pointer;
+}
 
 button.clear{ 
     padding: 10px;
@@ -341,3 +353,26 @@ strike {
     outline: none; /* Remove default focus outline */
     border-bottom: 2px solid #3498db; /* Add custom focus indicator */
 }
+
+.icon-container {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px;
+}
+
+.icon-link {
+    text-decoration: none;
+    color: #333;
+    font-size: 1.5em;
+    display: flex;
+    align-items: center;
+}
+
+.icon-link i {
+    margin-right: 8px; /* Space between the icon and text */
+}
+
+.icon-link:hover {
+    color: #007bff; /* Change color on hover */
+}
+

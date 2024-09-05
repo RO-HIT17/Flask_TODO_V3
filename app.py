@@ -97,8 +97,12 @@ def index(user_id):
 def filter(user_id):
     priority=request.form.get('priority1')
     #print(priority)
-    todos = Todo.query.filter_by(user_id=user_id).filter_by(clear=False).filter_by(priority=priority).all()
-    return render_template('index.html', todos=todos,user_id=user_id)
+    if priority:
+        todos = Todo.query.filter_by(user_id=user_id).filter_by(clear=False).filter_by(priority=priority).all()
+        return render_template('index.html', todos=todos,user_id=user_id)
+    else:
+        todos = Todo.query.filter_by(user_id=user_id).filter_by(clear=False).all()
+        return render_template('index.html', todos=todos,user_id=user_id)
 
 @app.route('/sort/<int:user_id>/<string:button>',methods=['GET'])
 def sort(user_id,button):
@@ -124,6 +128,16 @@ def add_todo(user_id):
         db.session.commit()
     return redirect(url_for('index',user_id=user_id)) 
 
+@app.route('/delete/<int:user_id>/<int:todo_id>', methods=['GET'])
+def delete_todo(user_id, todo_id):
+    todo = Todo.query.get(todo_id)
+    
+    if todo:
+
+        db.session.delete(todo)
+        db.session.commit()
+    return redirect(url_for('index', user_id=user_id))
+
 @app.route('/clear/<int:user_id>')
 def clear_all(user_id):
     todo_lst=Todo.query.filter_by(user_id=user_id).all()
@@ -132,6 +146,15 @@ def clear_all(user_id):
             i.clear=True
     db.session.commit()
     return redirect(url_for('index',user_id=user_id)) 
+
+@app.route('/search/<int:user_id>', methods=['GET'])
+def search(user_id):
+    query = request.args.get('query')
+    if query:
+        todos = Todo.query.filter(Todo.user_id == user_id, Todo.title.ilike(f'%{query}%')).all()
+    else:
+        todos = Todo.query.filter_by(user_id=user_id).all()
+    return render_template('index.html', todos=todos, query=query,user_id=user_id)
 
 @app.route('/complete/<int:user_id>/<int:todo_id>')
 def complete_todo(user_id,todo_id):
