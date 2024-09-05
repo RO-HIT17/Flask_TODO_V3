@@ -97,8 +97,12 @@ def index(user_id):
 def filter(user_id):
     priority=request.form.get('priority1')
     #print(priority)
-    todos = Todo.query.filter_by(user_id=user_id).filter_by(clear=False).filter_by(priority=priority).all()
-    return render_template('index.html', todos=todos,user_id=user_id)
+    if priority:
+        todos = Todo.query.filter_by(user_id=user_id).filter_by(clear=False).filter_by(priority=priority).all()
+        return render_template('index.html', todos=todos,user_id=user_id)
+    else:
+        todos = Todo.query.filter_by(user_id=user_id).filter_by(clear=False).all()
+        return render_template('index.html', todos=todos,user_id=user_id)
 
 @app.route('/sort/<int:user_id>/<string:button>',methods=['GET'])
 def sort(user_id,button):
