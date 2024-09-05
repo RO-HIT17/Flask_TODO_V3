@@ -61,6 +61,7 @@
         <div class="item-deadline">{{ todo.deadline }}</div> <!-- Moved Deadline here -->
         <div class="item-priority {% if todo.priority == 'Low' %}low{% elif todo.priority == 'Medium' %}medium{% elif todo.priority == 'High' %}high{% endif %}">
             {{ todo.priority }}
+            <a href="{{ url_for('delete_todo', todo_id=todo.todo_id, user_id=user_id) }}" class="filter">Delete</a>
         </div> <!-- Moved Priority here -->
     </li>
     {% endfor %}
