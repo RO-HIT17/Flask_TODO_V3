@@ -58,6 +58,7 @@ def dashboard(user_id):
 def reset_password():
     email=request.form.get('email')
     new_password=request.form.get('newpassword')
+    verification=request.form.get('verification')
     update=User.query.filter_by(email=email).first()
     if update:
         update.password=new_password
