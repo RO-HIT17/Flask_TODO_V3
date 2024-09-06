@@ -150,6 +150,36 @@ button.todo {
     border-radius: 4px;
     cursor: pointer;
 }
+/* Icon button styling */
+.icon-button {
+    background: none;
+    border: none;
+    font-size: 2em;
+    cursor: pointer;
+    color: inherit;
+}
+     /* Icon button styling */
+     .icon-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        outline: none;
+        padding: 10px;
+        font-size: 24px;
+    }
+
+    /* Styling the icon color */
+
+    /* When in dark mode, change the sun icon color to white */
+    body.dark-theme .icon-button i.fa-sun {
+        color: #FFFFFF; /* White sun icon in dark mode */
+    }
+/* Center the icon toggle */
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+}
 .progress-bar-container {
     width: 100%;
     background-color: #e0e0e0;

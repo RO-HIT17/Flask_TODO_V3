@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Dashboard - To-Do List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link id="light-theme" rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
     <link id="dark-theme" rel="stylesheet" href="{{ url_for('static', filename='dark-dash.css') }}" disabled>
 </head>
@@ -13,6 +14,11 @@
         <a href="{{ url_for('main') }}"><button class="logout">Logout</button></a>
     </div>
     <br><br>
+    <div class="theme-toggle">
+        <button id="themeToggleBtn" class="icon-button">
+            <i id="themeIcon" class="fas fa-moon"></i>
+        </button>
+    </div>
     <div class="dashboard-container">
         <div class="user-info">
             <h1>User Dashboard</h1>
@@ -28,7 +34,7 @@
             </div>
             <div class="stat-item">
                 <h2>Pending Tasks</h2>
-                <p id="pending-tasks">{{len_com}}</p> <!-- Fixed variable name -->
+                <p id="pending-tasks">{{len-com}}</p>
             </div>
             <div class="stat-item">
                 <h2>Completion Rate</h2>
@@ -62,9 +68,12 @@
     <!-- Theme Toggle Button -->
     <button id="theme-toggle" class="toggle-theme">Switch to Dark Theme</button>
 
+
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const themeToggleButton = document.getElementById('theme-toggle');
+            const themeToggleButton = document.getElementById('themeToggleBtn');
+            const themeIcon = document.getElementById('themeIcon');
             const lightThemeLink = document.getElementById('light-theme');
             const darkThemeLink = document.getElementById('dark-theme');
 
@@ -72,7 +81,8 @@
             if (localStorage.getItem('theme') === 'dark') {
                 darkThemeLink.removeAttribute('disabled');
                 lightThemeLink.setAttribute('disabled', 'disabled');
-                themeToggleButton.textContent = 'Switch to Light Theme';
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
             }
 
             themeToggleButton.addEventListener('click', function() {
@@ -81,13 +91,15 @@
                     darkThemeLink.removeAttribute('disabled');
                     lightThemeLink.setAttribute('disabled', 'disabled');
                     localStorage.setItem('theme', 'dark');
-                    themeToggleButton.textContent = 'Switch to Light Theme';
+                    themeIcon.classList.remove('fa-sun');
+                    themeIcon.classList.add('fa-moon'); // Switch icon to moon for dark mode
                 } else {
                     // Switch to light theme
                     lightThemeLink.removeAttribute('disabled');
                     darkThemeLink.setAttribute('disabled', 'disabled');
                     localStorage.setItem('theme', 'light');
-                    themeToggleButton.textContent = 'Switch to Dark Theme';
+                    themeIcon.classList.remove('fa-moon');
+                    themeIcon.classList.add('fa-sun'); // Switch icon to sun for light mode
                 }
             });
 
