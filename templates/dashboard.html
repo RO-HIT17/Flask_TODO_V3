@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Dashboard - To-Do List</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+    <link id="light-theme" rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+    <link id="dark-theme" rel="stylesheet" href="{{ url_for('static', filename='dark-dash.css') }}" disabled>
 </head>
 <body>
     <div class="button-container">
@@ -27,51 +28,87 @@
             </div>
             <div class="stat-item">
                 <h2>Pending Tasks</h2>
-                <p id="pending-tasks">{{len-com}}</p>
+                <p id="pending-tasks">{{len_com}}</p> <!-- Fixed variable name -->
             </div>
             <div class="stat-item">
                 <h2>Completion Rate</h2>
                 <p id="completion-rate">{{per}}%</p>
             </div>
-            
         </div>
-            <div class="progress-bar-container">
-                <div class="progress-bar" id="progressBar">0%</div>
-            </div>
-       <div class="recent-activity">
+        
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progressBar">0%</div>
+        </div>
+        
+        <div class="recent-activity">
             <h2>Recent Activity</h2>
-            <ul id="recent-activity-list">
+            <ul id="recent-activity-list-1"> <!-- Changed ID to avoid duplication -->
                 {% for todo in comdata %}
-                <li>{{"Completed: ''" + todo.title + "'' at " + todo.completed_date}}</li>
+                <li>{{"Completed: '" + todo.title + "' at " + todo.completed_date}}</li>
                 {% endfor %}
             </ul>
         </div>
+        
         <div class="recent-activity">
             <h2>Pending Tasks</h2>
-            <ul id="recent-activity-list">
+            <ul id="recent-activity-list-2"> <!-- Changed ID to avoid duplication -->
                 {% for todo in todolist3 %}
                 <li>{{todo.title}}</li>
                 {% endfor %}
             </ul>
         </div>
     </div>
-    <script>
-        function updateProgressBar(percentage) {
-            var progressBar = document.getElementById('progressBar');
-            progressBar.style.width = percentage + '%';
-            progressBar.innerHTML = percentage + '%';
+    
+    <!-- Theme Toggle Button -->
+    <button id="theme-toggle" class="toggle-theme">Switch to Dark Theme</button>
 
-            if (percentage <= 25) {
-                progressBar.style.backgroundColor = 'red';
-            } else if (percentage > 25 && percentage <= 50) {
-                progressBar.style.backgroundColor = 'orange';
-            } else if (percentage > 50 && percentage <= 75) {
-                progressBar.style.backgroundColor = 'yellow';
-            } else {
-                progressBar.style.backgroundColor = 'green';
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggleButton = document.getElementById('theme-toggle');
+            const lightThemeLink = document.getElementById('light-theme');
+            const darkThemeLink = document.getElementById('dark-theme');
+
+            // Load saved theme preference from localStorage if available
+            if (localStorage.getItem('theme') === 'dark') {
+                darkThemeLink.removeAttribute('disabled');
+                lightThemeLink.setAttribute('disabled', 'disabled');
+                themeToggleButton.textContent = 'Switch to Light Theme';
             }
-        } 
-        updateProgressBar({{ per }});
+
+            themeToggleButton.addEventListener('click', function() {
+                if (darkThemeLink.disabled) {
+                    // Switch to dark theme
+                    darkThemeLink.removeAttribute('disabled');
+                    lightThemeLink.setAttribute('disabled', 'disabled');
+                    localStorage.setItem('theme', 'dark');
+                    themeToggleButton.textContent = 'Switch to Light Theme';
+                } else {
+                    // Switch to light theme
+                    lightThemeLink.removeAttribute('disabled');
+                    darkThemeLink.setAttribute('disabled', 'disabled');
+                    localStorage.setItem('theme', 'light');
+                    themeToggleButton.textContent = 'Switch to Dark Theme';
+                }
+            });
+
+            // Set progress bar based on completion rate
+            function updateProgressBar(percentage) {
+                var progressBar = document.getElementById('progressBar');
+                progressBar.style.width = percentage + '%';
+                progressBar.innerHTML = percentage + '%';
+
+                if (percentage <= 25) {
+                    progressBar.style.backgroundColor = 'red';
+                } else if (percentage <= 50) {
+                    progressBar.style.backgroundColor = 'orange';
+                } else if (percentage <= 75) {
+                    progressBar.style.backgroundColor = 'yellow';
+                } else {
+                    progressBar.style.backgroundColor = 'green';
+                }
+            } 
+            updateProgressBar({{ per }});
+        });
     </script>
 </body>
 </html>
