@@ -152,7 +152,7 @@ def clear_all(user_id):
 def search(user_id):
     query = request.args.get('query')
     if query:
-        todos = Todo.query.filter(Todo.user_id == user_id, Todo.title.ilike(f'%{query}%')).all()
+        todos = Todo.query.filter(Todo.user_id == user_id , Todo.title.ilike(f'%{query}%')).filter_by(clear=False).all()
     else:
         todos = Todo.query.filter_by(user_id=user_id).all()
     return render_template('index.html', todos=todos, query=query,user_id=user_id)
