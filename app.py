@@ -69,11 +69,14 @@ def dashboard(user_id):
     #print(todolst,tasks)
     return render_template('dashboard.html',data=data,len=tasks,com=comp,comdata=todolist2,per=per,todolist3=todolist3)
 
+verification_code=0
+def verification():
+    verification_code = random.randint(100000, 999999)  
+    
 @app.route('/send_verification', methods=['POST'])
 def send_verification():
     email = request.form['email']  
-    verification_code = random.randint(100000, 999999)  
-
+    verification_code=verification()
     msg = Message('Your Verification Code', sender='mithrans8c@egmail.com', recipients=[email])
     msg.body = f'Your verification code is {verification_code}.'
     try:
@@ -90,7 +93,7 @@ def reset_password():
     verification=request.form.get('verification')
     update=User.query.filter_by(email=email).first()
     if update:
-        if verification:
+        if verification==verification_code:
             update.password=new_password
             db.session.commit()
             return render_template('forgot_password.html',em=email,np=new_password, message="Password Changed Successfully",val=1)
