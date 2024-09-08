@@ -6,6 +6,10 @@ import random
 
 app = Flask(__name__)
 
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///todos.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db.init_app(app) 
+
 # Email configuration
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
@@ -14,12 +18,9 @@ app.config['MAIL_PASSWORD'] = 'bzio tgqs ijkm bnde'
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
 
+
 mail = Mail(app)
 
-app=Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///todos.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db.init_app(app) 
    
 with app.app_context():
     db.create_all()
@@ -75,7 +76,10 @@ def send_verification():
 
     msg = Message('Your Verification Code', sender='mithrans8c@egmail.com', recipients=[email])
     msg.body = f'Your verification code is {verification_code}.'
-    mail.send(msg)
+    try:
+        mail.send(msg)
+    except Exception as e:
+        return str(e)
     return render_template('forgot_password.html',em=email, message=f'Verification code sent to {email}',val=1)
 
 @app.route('/reset' , methods=['POST'])
