@@ -56,7 +56,9 @@ def dashboard(user_id):
 
 @app.route('/verification' , methods=['POST'])
 def verification_code():
-    
+    email=request.form.get('email')
+    new_password=request.form.get('newpassword')
+    return render_template('forgot_password.html', em=email,np=new_password,val=0,ver=1)
 @app.route('/reset' , methods=['POST'])
 def reset_password():
     email=request.form.get('email')
