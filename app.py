@@ -77,17 +77,22 @@ def verification():
     
 @app.route('/send_verification', methods=['POST'])
 def send_verification():
-    email = request.form['email']  
-    verification_code=verification()
-    
-    msg = Message('Your Verification Code', sender='mithrans8c@egmail.com', recipients=[email])
-    msg.body = f'Your verification code is {verification_code}.'
-    try:
-        mail.send(msg)
-    except Exception as e:
-        return str(e)
-    
-    return render_template('forgot_password.html',em=email, message=f'Verification code sent to {email}',val=1,ver=1)
+    update=User.query.filter_by(email=email).first()
+    if update:
+        email = request.form['email']  
+        verification_code=verification()
+        
+        msg = Message('Your Verification Code', sender='mithrans8c@egmail.com', recipients=[email])
+        msg.body = f'Your verification code is {verification_code}.'
+        try:
+            mail.send(msg)
+        except Exception as e:
+            return str(e)
+        
+        return render_template('forgot_password.html',em=email, message=f'Verification code sent to {email}',val=1,ver=1)
+    else:
+        error="Username not registered"
+        return render_template('forgot_password.html', er_message=error,val=1)
 
 @app.route('/reset' , methods=['POST'])
 def reset_password():
