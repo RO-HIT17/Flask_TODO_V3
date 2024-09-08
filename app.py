@@ -80,7 +80,8 @@ def send_verification():
         mail.send(msg)
     except Exception as e:
         return str(e)
-    return render_template('forgot_password.html',em=email, message=f'Verification code sent to {email}',val=1)
+    
+    return render_template('forgot_password.html',em=email, message=f'Verification code sent to {email}',val=1,ver=1)
 
 @app.route('/reset' , methods=['POST'])
 def reset_password():
