@@ -59,6 +59,7 @@ def verification_code():
     email=request.form.get('email')
     new_password=request.form.get('newpassword')
     return render_template('forgot_password.html', em=email,np=new_password,val=0,ver=1)
+
 @app.route('/reset' , methods=['POST'])
 def reset_password():
     email=request.form.get('email')
@@ -66,10 +67,14 @@ def reset_password():
     verification=request.form.get('verification')
     update=User.query.filter_by(email=email).first()
     if update:
-        if verification==1:
+        if verification:
             update.password=new_password
             db.session.commit()
-            return render_template('forgot_password.html', em=email,np=new_password,message="Password Changed Successfully",val=1,ver=1)
+            return render_template('forgot_password.html',em=email,np=new_password, message="Password Changed Successfully",val=1)
+        else:
+            error="Verification Code Not Matched"
+            return render_template('forgot_password.html', er_message=error,val=1)
+
     else:
         error="Username not registered"
         return render_template('forgot_password.html', er_message=error,val=1)
