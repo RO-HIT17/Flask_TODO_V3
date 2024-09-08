@@ -77,6 +77,7 @@ def verification():
     
 @app.route('/send_verification', methods=['POST'])
 def send_verification():
+    email = request.form['email']  
     update=User.query.filter_by(email=email).first()
     if update:
         email = request.form['email']  
