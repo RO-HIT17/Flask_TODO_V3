@@ -97,7 +97,7 @@ def reset_password():
     update=User.query.filter_by(email=email).first()
     if update:
         print(verification,verification_code)
-        if verification==verification_code:
+        if int(verification)==int(verification_code):
             update.password=new_password
             db.session.commit()
             return render_template('forgot_password.html',em=email,np=new_password, message="Password Changed Successfully",val=1)
