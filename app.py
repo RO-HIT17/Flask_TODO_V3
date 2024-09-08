@@ -54,6 +54,9 @@ def dashboard(user_id):
     #print(todolst,tasks)
     return render_template('dashboard.html',data=data,len=tasks,com=comp,comdata=todolist2,per=per,todolist3=todolist3)
 
+@app.route('/verification' , methods=['POST'])
+def verification_code():
+    
 @app.route('/reset' , methods=['POST'])
 def reset_password():
     email=request.form.get('email')
@@ -61,9 +64,10 @@ def reset_password():
     verification=request.form.get('verification')
     update=User.query.filter_by(email=email).first()
     if update:
-        update.password=new_password
-        db.session.commit()
-        return render_template('forgot_password.html', message="Password Changed Successfully",val=1)
+        if verification==1:
+            update.password=new_password
+            db.session.commit()
+            return render_template('forgot_password.html', em=email,np=new_password,message="Password Changed Successfully",val=1,ver=1)
     else:
         error="Username not registered"
         return render_template('forgot_password.html', er_message=error,val=1)
