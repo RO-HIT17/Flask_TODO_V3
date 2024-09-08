@@ -1,6 +1,20 @@
 from flask import redirect,url_for,render_template,request,Flask
 from models import db,Todo,User
 from datetime import datetime
+from flask_mail import Mail, Message
+import random
+
+app = Flask(__name__)
+
+# Email configuration
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USERNAME'] = 'mithrans8c@gmail.com'
+app.config['MAIL_PASSWORD'] = 'bzio tgqs ijkm bnde'
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USE_SSL'] = False
+
+mail = Mail(app)
 
 app=Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///todos.db'
@@ -54,11 +68,15 @@ def dashboard(user_id):
     #print(todolst,tasks)
     return render_template('dashboard.html',data=data,len=tasks,com=comp,comdata=todolist2,per=per,todolist3=todolist3)
 
-@app.route('/verification' , methods=['POST'])
-def verification_code():
-    email=request.form.get('email')
-    new_password=request.form.get('newpassword')
-    return render_template('forgot_password.html', em=email,np=new_password,val=0,ver=1)
+@app.route('/send_verification', methods=['POST'])
+def send_verification():
+    email = request.form['email']  
+    verification_code = random.randint(100000, 999999)  
+
+    msg = Message('Your Verification Code', sender='mithrans8c@egmail.com', recipients=[email])
+    msg.body = f'Your verification code is {verification_code}.'
+    mail.send(msg)
+    return render_template('forgot_password.html',em=email, message=f'Verification code sent to {email}',val=1)
 
 @app.route('/reset' , methods=['POST'])
 def reset_password():
