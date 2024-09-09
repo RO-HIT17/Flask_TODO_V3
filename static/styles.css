@@ -375,4 +375,18 @@ strike {
 .icon-link:hover {
     color: #007bff; /* Change color on hover */
 }
+#startVoiceInput {
+    background-color: #4CAF50; /* Green */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+#startVoiceInput:hover {
+    background-color: #45a049;
+}
 
