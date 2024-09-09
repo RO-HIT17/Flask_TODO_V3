@@ -376,17 +376,24 @@ strike {
     color: #007bff; /* Change color on hover */
 }
 #startVoiceInput {
-    background-color: #4CAF50; /* Green */
-    color: white;
+    background-color: #f0f0f0;
     border: none;
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
     border-radius: 5px;
-    margin-top: 10px;
+    color: #333;
+    display: flex;
+    align-items: center;
+}
+
+#startVoiceInput i {
+    margin-right: 10px;
+    color: red; /* Recording icon color */
 }
 
 #startVoiceInput:hover {
-    background-color: #45a049;
+    background-color: #ddd;
 }
+
 
