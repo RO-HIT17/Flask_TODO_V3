@@ -79,8 +79,7 @@ def verification():
 def send_verification():
     email = request.form['email']  
     update=User.query.filter_by(email=email).first()
-    if update:
-        email = request.form['email']  
+    if update:  
         verification_code=verification()
         
         msg = Message('Your Verification Code', sender='mithrans8c@egmail.com', recipients=[email])
