@@ -375,32 +375,26 @@ strike {
 .icon-link:hover {
     color: #007bff; /* Change color on hover */
 }
-.mic-button {
-    background-color: #4CAF50; /* Button background color */
+#startVoiceInput {
+    background-color: #f0f0f0;
     border: none;
     color: white; /* Text and icon color */
     padding: 12px 24px;
     font-size: 16px;
     cursor: pointer;
-    border-radius: 8px;
+    border-radius: 5px;
+    color: #333;
     display: flex;
     align-items: center;
 }
 
-.mic-button i {
-    margin-right: 8px;
-    font-size: 20px; /* Icon size */
+#startVoiceInput i {
+    margin-right: 10px;
+    color: red; /* Recording icon color */
 }
 
-.mic-button:hover {
-    background-color: #45a049; /* Button color on hover */
-}
-.fa-microphone {
-    font-size: 24px; /* Change the size of the icon */
-    color: #4CAF50;  /* Change the color of the icon */
-    cursor: pointer; /* Make the icon look clickable */
+#startVoiceInput:hover {
+    background-color: #ddd;
 }
 
-.fa-microphone:hover {
-    color: #45a049;  /* Change color on hover */
-}
+

@@ -7,7 +7,6 @@
     <link id="dark-theme" rel="stylesheet" href="{{ url_for('static', filename='dark-index.css') }}" disabled>
     <title>TODO Application</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="logout-container">
@@ -66,6 +65,43 @@
                 deadlineDateInput.value = todayDate;
             }
         });
+
+            function initializeSpeechRecognition() {
+                const startVoiceInput = document.getElementById('startVoiceInput');
+                const taskInput = document.getElementById('taskInput');
+        
+                startVoiceInput.addEventListener('click', function() {
+                    // Check if browser supports webkitSpeechRecognition
+                    window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                    if (!window.SpeechRecognition) {
+                        alert("Your browser does not support Speech Recognition.");
+                        return;
+                    }
+        
+                    const recognition = new SpeechRecognition();
+                    recognition.lang = 'en-US';
+                    recognition.interimResults = false;
+                    recognition.maxAlternatives = 1;
+        
+                    recognition.start();  // Start the speech recognition
+        
+                    recognition.onresult = function(event) {
+                        const transcript = event.results[0][0].transcript;
+                        taskInput.value = transcript;  // Set the transcribed text to the task input field
+                    };
+        
+                    recognition.onspeechend = function() {
+                        recognition.stop();  // Stop recognition when user stops speaking
+                    };
+        
+                    recognition.onerror = function(event) {
+                        console.error('Speech recognition error', event.error);
+                    };
+                });
+            }
+        
+            // Call the function to initialize speech recognition
+            initializeSpeechRecognition();
     </script>
 </body>
 </html>
