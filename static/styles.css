@@ -375,6 +375,7 @@ strike {
 .icon-link:hover {
     color: #007bff; /* Change color on hover */
 }
+<<<<<<< HEAD
 .mic-button {
     background-color: #4CAF50; /* Button background color */
     border: none;
@@ -391,6 +392,8 @@ strike {
     margin-right: 8px;
     font-size: 20px; /* Icon size */
 }
+=======
+>>>>>>> parent of 19e619e (added https and voice to text feature)
 
 .mic-button:hover {
     background-color: #45a049; /* Button color on hover */

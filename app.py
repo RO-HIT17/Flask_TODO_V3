@@ -217,7 +217,7 @@ def complete_todo(user_id,todo_id):
     return redirect(url_for('index',user_id=user_id)) 
 
 if __name__ == '__main__':
-    app.run(ssl_context=('localhost.pem', 'localhost-key.pem'))
+    app.run(debug=True)
 
 #@app._got_first_request
 #def create_tables():
