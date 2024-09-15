@@ -7,12 +7,12 @@ import os
 from werkzeug.utils import secure_filename
 from celery import Celery
 from datetime import datetime, timedelta
-from celery_tasks import send_due_date_reminder
+from celery_tasks import make_celery
 
 app = Flask(__name__)
 
-app.config['CELERY_BROKER_URL'] = 'redis://localhost:6379/0'
-app.config['CELERY_RESULT_BACKEND'] = 'redis://localhost:6379/0'
+app.config['CELERY_BROKER_URL'] = 'redis://localhost:6380/0'
+app.config['CELERY_RESULT_BACKEND'] = 'redis://localhost:6380/0'
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///todos.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -27,16 +27,20 @@ app.config['MAIL_USE_SSL'] = False
 
 mail = Mail(app)
 
-def make_celery(app):
-    celery = Celery(
-        app.import_name,
-        backend=app.config['CELERY_RESULT_BACKEND'],
-        broker=app.config['CELERY_BROKER_URL']
-    )
-    celery.conf.update(app.config)
-    return celery
-
 celery = make_celery(app)
+
+@celery.task
+def send_due_date_reminder(email, task_name, due_date):
+    """Send an email reminder about the due date."""
+    print("Hel1lo")
+    with app.app_context():
+        print("Hello")
+        msg = Message('Task Due Reminder', sender='mithrans8c@gmail.com', recipients=[email])
+        msg.body = f'Reminder: Your task {task_name} is due on {due_date}.'
+        mail.send(msg)
+
+
+
 
 UPLOAD_FOLDER = 'uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -210,7 +214,8 @@ def add_todo(user_id):
         db.session.add(new_todo)
         db.session.commit()
         reminder_time = deadline_date - timedelta(days=1)
-        send_due_date_reminder.apply_async(args=[email, title, deadline_date], eta=reminder_time)
+       # send_due_date_reminder.apply_async(args=[email, title, deadline_date], eta=reminder_time)
+        send_due_date_reminder.delay(email, title, deadline_date)
 
 
     return redirect(url_for('index', user_id=user_id))
