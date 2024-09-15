@@ -26,16 +26,27 @@ mail = Mail(app)
 
 # Define an upload folder outside the static folder
 #UPLOAD_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'uploads'))
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'pdf', 'docx'}
+#ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'pdf', 'docx'}
 
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+#def allowed_file(filename):
+#    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 #if not os.path.exists(app.config['UPLOAD_FOLDER']):
 #    os.makedirs(app.config['UPLOAD_FOLDER'])
 
-app.config['UPLOAD_FOLDER'] = 'uploads'
+# Define the folder where uploaded files will be saved
+
+UPLOAD_FOLDER = 'uploads'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB file size limit
+
+# Allowed extensions (you can customize this)
+ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 
 with app.app_context():
     db.create_all()
@@ -185,14 +196,17 @@ def add_todo(user_id):
     deadline_str = request.form['deadline']  # Get the deadline from form input
     deadline_date = datetime.strptime(deadline_str, "%Y-%m-%d").date()
     file = request.files['file']
-    file_url = None  # Default to None if no file is uploaded
-
+    
     if file and allowed_file(file.filename):
+        # Secure the file name
         filename = secure_filename(file.filename)
+        # Save the file to the uploads folder
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        file_url = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        # Store the filename or relative path in the database
+        file_url = filename
+    else:
+        file_url = None  # No file uploaded or invalid file type
 
-    # Add the task even if no file is uploaded
     if title:
         new_todo = Todo(title=title, user_id=user_id, priority=priority, deadline=deadline_date, file_url=file_url)
         db.session.add(new_todo)
