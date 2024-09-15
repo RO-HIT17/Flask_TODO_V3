@@ -239,6 +239,31 @@ def complete_todo(user_id,todo_id):
 def uploads(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
+@app.route('/rankings')
+def rankings():
+    # Query to get users and count their completed tasks
+    user_rankings = (
+        db.session.query(User.fname, User.lname, db.func.count(Todo.todo_id).label('task_count'))
+        .join(Todo, User.user_id == Todo.user_id)
+        .filter(Todo.completed == True)
+        .group_by(User.user_id)
+        .order_by(db.desc('task_count'))
+        .all()
+    )
+
+    # Add rank to each user in the results
+    ranked_users = []
+    for index, user in enumerate(user_rankings, start=1):
+        ranked_users.append({
+            'rank': index,
+            'fname': user[0],
+            'lname': user[1],
+            'task_count': user[2]
+        })
+
+    return render_template('rankings.html', ranked_users=ranked_users)
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

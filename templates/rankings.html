@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Rankings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+
+        @media (max-width: 600px) {
+            table, th, td {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>User Rankings by Completed Tasks</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Completed Tasks</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in ranked_users %}
+            <tr>
+                <td>{{ user.rank }}</td> <!-- Rank -->
+                <td>{{ user.fname }}</td> <!-- First Name -->
+                <td>{{ user.lname }}</td> <!-- Last Name -->
+                <td>{{ user.task_count }}</td> <!-- Completed Task Count -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>
