@@ -1,96 +1,151 @@
-# To-Do List Manager
+# Flask TODO Manager
 
-## Overview
-This is a simple To-Do List Manager web application built using Flask. The application allows users to register, log in, manage their tasks, and view their task completion statistics. The app uses SQLite for data storage and SQLAlchemy as the ORM.
+A Flask-based TODO Manager application designed to manage tasks efficiently with user authentication, task management, email reminders, and more.
 
 ## Features
-- **User Registration**: New users can register by providing their name, email, and password.
-- **User Login**: Registered users can log in to access their personalized dashboard.
-- **Task Management**: Users can add, complete, and clear tasks in their to-do list.
-- **Dashboard**: Users can view the total number of tasks, completed tasks, and the completion rate.
-- **Password Reset**: Users can reset their password if they forget it.
-- **Task History**: Users can view their task completion history.
 
-## Project Structure
+### User Registration and Authentication
+- **User Registration**: Allows users to register with their personal details including name, email, phone number, and password.
+- **Login/Logout**: Users can log in using their email and password. Once logged in, users can manage their tasks and perform other operations. Users can also log out.
+- **Forgot Password**: Users can reset their passwords using a verification code sent to their registered email.
+
+### Task Management
+- **Create Tasks**: Users can add new tasks with a title, priority level, deadline, and optional file attachment.
+- **Update Tasks**: Users can update existing tasks, including changing their title, priority, deadline, and file attachment.
+- **Delete Tasks**: Users can remove tasks from their list.
+- **Complete Tasks**: Users can mark tasks as completed. The completion date is recorded.
+
+### Task Filtering and Sorting
+- **Filter Tasks**: Users can filter tasks by priority (e.g., High, Medium, Low) to view only tasks that match the selected priority.
+- **Sort Tasks**: Users can sort tasks by title, priority, or deadline in ascending or descending order to organize their task list.
+
+### Email Reminders
+- **Automatic Reminders**: The application sends automatic email reminders for tasks that are due soon (e.g., one day before the deadline). This feature helps users stay on top of their deadlines.
+
+### Rankings
+- **User Rankings**: Users can view a leaderboard showing rankings based on the number of completed tasks. This feature encourages users to stay productive and see how they compare with others.
+
+### File Upload
+- **Attach Files**: Users can upload files (e.g., PDFs, images) related to tasks. The files are stored in the server and can be accessed through task details.
+
+## Folder Structure
+
 ```
-├── app.py                  # The main application file with Flask routes
-├── models.py               # The file defining the database models (User and Todo)
-├── templates/              # Folder containing HTML templates
-│   ├── base.html           # Base HTML template
-│   ├── login.html          # Login page
-│   ├── register.html       # User registration page
-│   ├── forgot_password.html # Password reset page
-│   ├── dashboard.html      # User dashboard
-│   ├── index.html          # To-do list page
-├── static/                 # Folder containing static files (CSS, JS)
-│   ├── login.css           # Stylesheet for login page
-│   ├── dashboard.css       # Stylesheet for dashboard page
-│   ├── index.css           # Stylesheet for to-do list page
-└── README.md               # This README file
+Flask_TODO_Manager/
+│
+├── app.py
+├── celery_tasks.py
+├── models.py
+├── requirements.txt
+├── README.md
+├── uploads/
+│   └── (Uploaded files will be stored here)
+│
+├── templates/
+│   ├── login.html
+│   ├── register.html
+│   ├── forgot_password.html
+│   ├── dashboard.html
+│   ├── index.html
+│   ├── rankings.html
+│   └── (Other HTML templates)
+│
+└── static/
+    ├── css/
+    │   └── (CSS files)
+    └── js/
+        └── (JavaScript files)
 ```
 
 ## Installation
 
-### Prerequisites
-- Python 3.x
-- Flask
-- SQLAlchemy
+1. **Clone the Repository**:
+    ```bash
+    git clone https://github.com/your-repository/Flask_TODO_Manager.git
+    cd Flask_TODO_Manager
+    ```
 
-### Steps
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/todo-list-manager.git
-   cd todo-list-manager
-   ```
+2. **Set Up a Virtual Environment**:
+    ```bash
+    python -m venv venv
+    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+    ```
 
-2. Create a virtual environment and activate it:
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate   # On Windows: venv\Scripts\activate
-   ```
+3. **Install Dependencies**:
+    ```bash
+    pip install -r requirements.txt
+    ```
 
-3. Install the dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+4. **Configure Redis** (For Celery):
+    - Ensure Redis is running on your local machine. Configure it to listen on port 6379 or 6380 as specified in `app.py`.
 
-4. Set up the SQLite database:
-   ```bash
-   flask shell
-   >>> from models import db
-   >>> db.create_all()
-   >>> exit()
-   ```
+5. **Set Up the Database**:
+    - SQLite is used for database management. The database file (`todos.db`) will be created automatically on the first run.
 
-5. Run the application:
-   ```bash
-   flask run
-   ```
-
-6. Access the application in your web browser at `http://127.0.0.1:5000/`.
+6. **Run the Application**:
+    ```bash
+    python app.py
+    ```
 
 ## Usage
 
-### Register
-1. Navigate to the registration page.
-2. Fill in your details (First Name, Last Name, Email, Password).
-3. Submit the form to create a new account.
+### Running the Application
+- Start the Flask application using the command:
+    ```bash
+    python app.py
+    ```
+- Access the application in your web browser at [http://127.0.0.1:5000](http://127.0.0.1:5000).
 
-### Login
-1. Go to the login page.
-2. Enter your registered email and password.
-3. Upon successful login, you will be redirected to your dashboard.
+### User Registration and Authentication
+1. **Register**:
+    - Navigate to the registration page and fill out the form with your details.
+2. **Login**:
+    - Use the login page to enter your email and password to access the application.
+3. **Forgot Password**:
+    - If you forget your password, you can request a verification code to reset it.
 
 ### Task Management
-- **Add a Task**: Enter the task title in the input box and click "Add".
-- **Complete a Task**: Click on the task to mark it as completed.
-- **Clear Completed Tasks**: Click the "Clear Completed" button to remove all completed tasks from the list.
+1. **Add a Task**:
+    - On the dashboard, use the form to create a new task. You can specify the title, priority, deadline, and attach a file.
+2. **Update a Task**:
+    - Navigate to the task details page and update the task information as needed.
+3. **Delete a Task**:
+    - Use the delete option to remove a task from the list.
+4. **Complete a Task**:
+    - Mark tasks as completed, which will record the completion date.
 
-### Dashboard
-- View statistics such as the total tasks, completed tasks, and your completion rate.
+### Task Filtering and Sorting
+1. **Filter Tasks**:
+    - Use the filter options to view tasks based on their priority.
+2. **Sort Tasks**:
+    - Use the sort options to organize tasks by title, priority, or deadline.
 
-### Password Reset
-- If you forget your password, click on "Forgot Password?" on the login page to reset it.
+### Email Reminders
+1. **Automatic Reminders**:
+    - Reminders are sent automatically for tasks that are approaching their deadline. Ensure your email settings are correct for this feature to work.
 
-## Contributing
-Contributions are welcome! Please submit a pull request or open an issue to suggest improvements.
+### Rankings
+1. **View Rankings**:
+    - Check the rankings page to see a leaderboard based on the number of completed tasks.
+
+### File Upload
+1. **Upload Files**:
+    - Attach files to your tasks by selecting them during task creation or update.
+
+## Troubleshooting
+
+- **Redis Connection Issues**:
+    Ensure Redis is running and accessible at the configured URL (`redis://localhost:6379/0` or `redis://localhost:6380/0`).
+
+- **Email Sending Issues**:
+    Verify that your email configuration is correct and that the email server allows connections from your application.
+
+- **Database Errors**:
+    Ensure the SQLite database file (`todos.db`) is accessible and not corrupted.
+
+## Acknowledgments
+
+- Flask for the web framework.
+- Celery for task scheduling.
+- Redis for task management backend.
+- SQLite for the database.
