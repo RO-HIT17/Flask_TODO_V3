@@ -150,7 +150,7 @@ button.todo {
     border-radius: 4px;
     cursor: pointer;
 }
-button.rankings {
+.rankings {
     padding: 10px 20px;
     background-color: #35dc54;
     color: white;
