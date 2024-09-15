@@ -42,7 +42,7 @@
     <input type="text" name="query" placeholder="Search tasks..." class="search-bar">
     <button type="submit" class="filter">Search</button>
 </form>
-<!--Modified-->
+
 <ul class="todo-list">
     <li class="todo-header">
         <div class="header-item"><a href="{{url_for('sort', button ="Title" ,user_id=user_id) }}"><button>Task</button></a></div>
@@ -73,7 +73,7 @@
            
         </div> 
          <a href="{{ url_for('delete_todo', todo_id=todo.todo_id, user_id=user_id) }}" class="delete-btn">
-            <i class="fas fa-trash-alt"></i></a><!-- Moved Priority here -->
+            <i class="fas fa-trash-alt"></i></a>
     </li>
     {% endfor %}
 </ul>

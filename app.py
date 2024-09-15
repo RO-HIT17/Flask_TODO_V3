@@ -12,7 +12,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///todos.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app) 
 
-# Email configuration
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USERNAME'] = 'mithrans8c@gmail.com'
@@ -20,28 +19,12 @@ app.config['MAIL_PASSWORD'] = 'bzio tgqs ijkm bnde'
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
 
-
 mail = Mail(app)
-
-
-# Define an upload folder outside the static folder
-#UPLOAD_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'uploads'))
-#ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'pdf', 'docx'}
-
-#def allowed_file(filename):
-#    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-
-#if not os.path.exists(app.config['UPLOAD_FOLDER']):
-#    os.makedirs(app.config['UPLOAD_FOLDER'])
-
-# Define the folder where uploaded files will be saved
 
 UPLOAD_FOLDER = 'uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB file size limit
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
-# Allowed extensions (you can customize this)
 ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 def allowed_file(filename):
@@ -193,19 +176,16 @@ def sort(user_id,button):
 def add_todo(user_id):
     title = request.form.get('title')
     priority=request.form.get('priority')
-    deadline_str = request.form['deadline']  # Get the deadline from form input
+    deadline_str = request.form['deadline']  
     deadline_date = datetime.strptime(deadline_str, "%Y-%m-%d").date()
     file = request.files['file']
     
     if file and allowed_file(file.filename):
-        # Secure the file name
         filename = secure_filename(file.filename)
-        # Save the file to the uploads folder
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        # Store the filename or relative path in the database
         file_url = filename
     else:
-        file_url = None  # No file uploaded or invalid file type
+        file_url = None 
 
     if title:
         new_todo = Todo(title=title, user_id=user_id, priority=priority, deadline=deadline_date, file_url=file_url)
@@ -275,3 +255,16 @@ if __name__ == '__main__':
 #         db.session.commit()
 #     return redirect(url_for('index'))
 
+
+# Define an upload folder outside the static folder
+#UPLOAD_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'uploads'))
+#ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'pdf', 'docx'}
+
+#def allowed_file(filename):
+#    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+#if not os.path.exists(app.config['UPLOAD_FOLDER']):
+#    os.makedirs(app.config['UPLOAD_FOLDER'])
+
+# Define the folder where uploaded files will be saved
