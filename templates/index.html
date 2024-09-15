@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form action="{{ url_for('add_todo' , user_id=user_id) }}" method="POST" class="todo-form">
+<form action="{{ url_for('add_todo' , user_id=user_id) }}" method="POST" enctype="multipart/form-data" class="todo-form">
     <div class="form-group-inline">
         <input type="text" name="title" id="taskInput" placeholder="Enter a new task" autofocus>
         <label for="priority">Priority:</label>
@@ -18,7 +18,8 @@
     <div class="form-group">
         <label for="deadline">Deadline Date:</label>
         <input type="date" name="deadline" class="deadline-date" id="deadlineDate">
-
+        <label for="file">Attach File:</label>
+        <input type="file" name="file" id="fileInput">
     </div>
     
     <button type="submit" class="add">Add Task</button>
@@ -61,6 +62,11 @@
                 </div>
             </button>
         </a>
+        {% if todo.file_url %}
+        <div class="task-file">
+            <a href="{{ url_for('uploads', filename=todo.file_url) }}" target="_blank">View File</a>
+        </div>
+        {% endif %}
         <div class="item-deadline">{{ todo.deadline }}</div> <!-- Moved Deadline here -->
         <div class="item-priority {% if todo.priority == 'Low' %}low{% elif todo.priority == 'Medium' %}medium{% elif todo.priority == 'High' %}high{% endif %}">
             {{ todo.priority }}
