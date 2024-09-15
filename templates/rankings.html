@@ -7,14 +7,13 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
             margin: 0;
             padding: 20px;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         h1 {
             text-align: center;
-            color: #333;
         }
 
         table {
@@ -42,14 +41,79 @@
             background-color: #ddd;
         }
 
-        @media (max-width: 600px) {
-            table, th, td {
-                font-size: 14px;
-            }
+        /* Button styling */
+        .back-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 16px;
         }
+
+        .back-btn:hover {
+            background-color: #45a049;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 5px;
+        }
+
+        .theme-toggle:hover {
+            background-color: #444;
+        }
+
+        /* Light theme */
+        .light-theme {
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .light-theme th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .light-theme tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Dark theme */
+        .dark-theme {
+            background-color: #333;
+            color: #f4f4f4;
+        }
+
+        .dark-theme th {
+            background-color: #222;
+            color: white;
+        }
+
+        .dark-theme tr:nth-child(even) {
+            background-color: #444;
+        }
+
+        .dark-theme tr:hover {
+            background-color: #555;
+        }
+
     </style>
 </head>
-<body>
+<body class="light-theme">
 
     <h1>User Rankings by Completed Tasks</h1>
     <table>
@@ -72,6 +136,43 @@
             {% endfor %}
         </tbody>
     </table>
+
+    <!-- Button to navigate back to the previous page -->
+    <button class="back-btn" onclick="goBack()">Go Back to Previous Page</button>
+
+    <!-- Theme toggle button -->
+    <button class="theme-toggle" id="theme-toggle-btn">Switch to Dark Mode</button>
+
+    <script>
+        // Function to go back to the previous page
+        function goBack() {
+            window.history.back();
+        }
+
+        // Theme toggle functionality
+        const themeToggleBtn = document.getElementById('theme-toggle-btn');
+        const body = document.body;
+
+        // Check localStorage for theme preference and apply it
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        if (currentTheme === 'dark') {
+            body.classList.replace('light-theme', 'dark-theme');
+            themeToggleBtn.textContent = 'Switch to Light Mode';
+        }
+
+        // Add event listener for theme toggle button
+        themeToggleBtn.addEventListener('click', function() {
+            if (body.classList.contains('light-theme')) {
+                body.classList.replace('light-theme', 'dark-theme');
+                themeToggleBtn.textContent = 'Switch to Light Mode';
+                localStorage.setItem('theme', 'dark'); // Save theme preference to localStorage
+            } else {
+                body.classList.replace('dark-theme', 'light-theme');
+                themeToggleBtn.textContent = 'Switch to Dark Mode';
+                localStorage.setItem('theme', 'light'); // Save theme preference to localStorage
+            }
+        });
+    </script>
 
 </body>
 </html>
