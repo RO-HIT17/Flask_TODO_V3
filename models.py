@@ -11,7 +11,7 @@ class Todo(db.Model):
     priority =db.Column(db.String(20))
     deadline=db.Column(db.Date)
     completed_date=db.Column(db.String(20))
-    
+    file_url = db.Column(db.String(200)) 
     def __repr__(self):
         return f"<Todo {self.title}>"
     

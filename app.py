@@ -1,8 +1,10 @@
-from flask import redirect,url_for,render_template,request,Flask
+from flask import redirect,url_for,render_template,request,Flask,send_from_directory
 from models import db,Todo,User
 from datetime import datetime
 from flask_mail import Mail, Message
 import random
+import os
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
@@ -21,7 +23,18 @@ app.config['MAIL_USE_SSL'] = False
 
 mail = Mail(app)
 
-   
+
+# Define an upload folder outside the static folder
+UPLOAD_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'uploads'))
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'pdf', 'docx'}
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+if not os.path.exists(app.config['UPLOAD_FOLDER']):
+    os.makedirs(app.config['UPLOAD_FOLDER'])
+
 with app.app_context():
     db.create_all()
     
@@ -169,11 +182,21 @@ def add_todo(user_id):
     priority=request.form.get('priority')
     deadline_str = request.form['deadline']  # Get the deadline from form input
     deadline_date = datetime.strptime(deadline_str, "%Y-%m-%d").date()
+    file = request.files['file']
+    file_url = None  # Default to None if no file is uploaded
+
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        file_url = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+
+    # Add the task even if no file is uploaded
     if title:
-        new_todo = Todo(title=title,user_id=user_id,priority=priority,deadline=deadline_date)
+        new_todo = Todo(title=title, user_id=user_id, priority=priority, deadline=deadline_date, file_url=file_url)
         db.session.add(new_todo)
         db.session.commit()
-    return redirect(url_for('index',user_id=user_id)) 
+
+    return redirect(url_for('index', user_id=user_id))
 
 @app.route('/delete/<int:user_id>/<int:todo_id>', methods=['GET'])
 def delete_todo(user_id, todo_id):
@@ -215,6 +238,10 @@ def complete_todo(user_id,todo_id):
         todo.completed_date=formatted_datetime
         db.session.commit()
     return redirect(url_for('index',user_id=user_id)) 
+@app.route('/uploads/<filename>')
+def uploads(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
