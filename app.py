@@ -25,15 +25,17 @@ mail = Mail(app)
 
 
 # Define an upload folder outside the static folder
-UPLOAD_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'uploads'))
+#UPLOAD_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'uploads'))
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'pdf', 'docx'}
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-if not os.path.exists(app.config['UPLOAD_FOLDER']):
-    os.makedirs(app.config['UPLOAD_FOLDER'])
+
+#if not os.path.exists(app.config['UPLOAD_FOLDER']):
+#    os.makedirs(app.config['UPLOAD_FOLDER'])
+
+app.config['UPLOAD_FOLDER'] = 'uploads'
 
 with app.app_context():
     db.create_all()
@@ -238,6 +240,7 @@ def complete_todo(user_id,todo_id):
         todo.completed_date=formatted_datetime
         db.session.commit()
     return redirect(url_for('index',user_id=user_id)) 
+
 @app.route('/uploads/<filename>')
 def uploads(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
