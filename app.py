@@ -5,8 +5,14 @@ from flask_mail import Mail, Message
 import random
 import os
 from werkzeug.utils import secure_filename
+from celery import Celery
+from datetime import datetime, timedelta
+from celery_tasks import send_due_date_reminder
 
 app = Flask(__name__)
+
+app.config['CELERY_BROKER_URL'] = 'redis://localhost:6379/0'
+app.config['CELERY_RESULT_BACKEND'] = 'redis://localhost:6379/0'
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///todos.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -21,6 +27,17 @@ app.config['MAIL_USE_SSL'] = False
 
 mail = Mail(app)
 
+def make_celery(app):
+    celery = Celery(
+        app.import_name,
+        backend=app.config['CELERY_RESULT_BACKEND'],
+        broker=app.config['CELERY_BROKER_URL']
+    )
+    celery.conf.update(app.config)
+    return celery
+
+celery = make_celery(app)
+
 UPLOAD_FOLDER = 'uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
@@ -29,7 +46,6 @@ ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
 
 with app.app_context():
     db.create_all()
@@ -174,6 +190,8 @@ def sort(user_id,button):
     
 @app.route('/add/<int:user_id>', methods=['POST'])
 def add_todo(user_id):
+    user=User.query.get(user_id)
+    email=user.email
     title = request.form.get('title')
     priority=request.form.get('priority')
     deadline_str = request.form['deadline']  
@@ -191,6 +209,9 @@ def add_todo(user_id):
         new_todo = Todo(title=title, user_id=user_id, priority=priority, deadline=deadline_date, file_url=file_url)
         db.session.add(new_todo)
         db.session.commit()
+        reminder_time = deadline_date - timedelta(days=1)
+        send_due_date_reminder.apply_async(args=[email, title, deadline_date], eta=reminder_time)
+
 
     return redirect(url_for('index', user_id=user_id))
 
@@ -199,7 +220,6 @@ def delete_todo(user_id, todo_id):
     todo = Todo.query.get(todo_id)
     
     if todo:
-
         db.session.delete(todo)
         db.session.commit()
     return redirect(url_for('index', user_id=user_id))
