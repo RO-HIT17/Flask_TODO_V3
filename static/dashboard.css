@@ -150,6 +150,14 @@ button.todo {
     border-radius: 4px;
     cursor: pointer;
 }
+.rankings {
+    padding: 10px 20px;
+    background-color: #35dc54;
+    color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+}
 /* Icon button styling */
 .icon-button {
     background: none;
