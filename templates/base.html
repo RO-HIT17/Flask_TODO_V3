@@ -46,7 +46,6 @@
                     localStorage.setItem('theme', 'dark');
                     themeToggleButton.textContent = 'Switch to Light Theme';
                 } else {
-                    // Switch to light theme
                     lightThemeLink.removeAttribute('disabled');
                     darkThemeLink.setAttribute('disabled', 'disabled');
                     localStorage.setItem('theme', 'light');
@@ -54,10 +53,9 @@
                 }
             });
 
-            // Set default date
             var today = new Date();
             var day = String(today.getDate()).padStart(2, '0');
-            var month = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-based in JavaScript
+            var month = String(today.getMonth() + 1).padStart(2, '0');
             var year = today.getFullYear();
             var todayDate = year + '-' + month + '-' + day;
             var deadlineDateInput = document.getElementById('deadlineDate');
@@ -71,7 +69,6 @@
                 const taskInput = document.getElementById('taskInput');
         
                 startVoiceInput.addEventListener('click', function() {
-                    // Check if browser supports webkitSpeechRecognition
                     window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
                     if (!window.SpeechRecognition) {
                         alert("Your browser does not support Speech Recognition.");
@@ -87,11 +84,11 @@
         
                     recognition.onresult = function(event) {
                         const transcript = event.results[0][0].transcript;
-                        taskInput.value = transcript;  // Set the transcribed text to the task input field
+                        taskInput.value = transcript; 
                     };
         
                     recognition.onspeechend = function() {
-                        recognition.stop();  // Stop recognition when user stops speaking
+                        recognition.stop();
                     };
         
                     recognition.onerror = function(event) {
@@ -100,22 +97,18 @@
                 });
             }
         
-            // Call the function to initialize speech recognition
             initializeSpeechRecognition();
             function openEditDialog(taskId, title, priority, deadline) {
                 const editDialog = document.getElementById('editTaskDialog');
                 
-                // Populate form fields with task details
                 document.getElementById('taskId').value = taskId;
                 document.getElementById('taskTitle').value = title;
                 document.getElementById('taskPriority').value = priority;
                 document.getElementById('taskDeadline').value = deadline;
             
-                // Show the dialog
                 editDialog.showModal();
               }
             
-              // Function to close the dialog
               function closeEditDialog() {
                 const editDialog = document.getElementById('editTaskDialog');
                 editDialog.close();
