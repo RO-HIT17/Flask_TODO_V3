@@ -62,6 +62,10 @@
                 </div>
             </button>
         </a>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editTaskModal" 
+            onclick="populateModal('{{ todo.id }}', '{{ todo.title }}', '{{ todo.priority }}', '{{ todo.deadline }}')">
+        Edit
+    </button>
         {% if todo.file_url %}
         <div class="task-file">
             <a href="{{ url_for('uploads', filename=todo.file_url) }}" target="_blank">View File</a>
