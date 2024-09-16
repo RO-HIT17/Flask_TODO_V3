@@ -102,15 +102,24 @@
         
             // Call the function to initialize speech recognition
             initializeSpeechRecognition();
-
-                function populateModal(taskId, title, priority, deadline) {
-                  // Set the modal fields with the task details
-                  document.getElementById('taskId').value = taskId;
-                  document.getElementById('taskTitle').value = title;
-                  document.getElementById('taskPriority').value = priority;
-                  document.getElementById('taskDeadline').value = deadline;
-                }
-              
+            function openEditDialog(taskId, title, priority, deadline) {
+                const editDialog = document.getElementById('editTaskDialog');
+                
+                // Populate form fields with task details
+                document.getElementById('taskId').value = taskId;
+                document.getElementById('taskTitle').value = title;
+                document.getElementById('taskPriority').value = priority;
+                document.getElementById('taskDeadline').value = deadline;
+            
+                // Show the dialog
+                editDialog.showModal();
+              }
+            
+              // Function to close the dialog
+              function closeEditDialog() {
+                const editDialog = document.getElementById('editTaskDialog');
+                editDialog.close();
+              }
     </script>
 </body>
 </html>

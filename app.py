@@ -104,11 +104,13 @@ def verification():
     verification_code = random.randint(100000, 999999) 
     return verification_code
 
-@app.route('/edit_task/<int:task_id>', methods=['POST'])
-def edit_task(task_id):
+@app.route('/edit_task/<int:user_id>', methods=['POST'])
+def edit_task(user_id):
+    task_id = request.form['task_id']
     title = request.form['title']
     priority = request.form['priority']
-    deadline = request.form['deadline']
+    deadline_str = request.form.get('deadline')
+    deadline = datetime.strptime(deadline_str, '%Y-%m-%d').date()  
 
     task = Todo.query.get(task_id)
     if task:
@@ -116,11 +118,11 @@ def edit_task(task_id):
         task.priority = priority
         task.deadline = deadline
         db.session.commit()
-        app("Task updated successfully!", "success")
+        print("Task updated successfully!", "success")
     else:
-        app("Task not found!", "danger")
+        print("Task not found!", "danger")
 
-    return redirect(url_for('index'))
+    return redirect(url_for('index',user_id=user_id))
     
 @app.route('/send_verification', methods=['POST'])
 def send_verification():
