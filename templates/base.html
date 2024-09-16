@@ -102,6 +102,15 @@
         
             // Call the function to initialize speech recognition
             initializeSpeechRecognition();
+
+                function populateModal(taskId, title, priority, deadline) {
+                  // Set the modal fields with the task details
+                  document.getElementById('taskId').value = taskId;
+                  document.getElementById('taskTitle').value = title;
+                  document.getElementById('taskPriority').value = priority;
+                  document.getElementById('taskDeadline').value = deadline;
+                }
+              
     </script>
 </body>
 </html>
