@@ -434,4 +434,38 @@ dialog {
     border: none;
     cursor: pointer;
   }
+  /* Styling for buttons with the class 'edit-button' */
+.edit-button {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    padding: 10px 20px;
+    text-align: center;
+    color: #fff; /* White text color */
+    background-color: #007bff; /* Blue background color */
+  }
+  
+  /* Hover state */
+  .edit-button:hover {
+    background-color: #0056b3; /* Darker blue */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Focus state */
+  .edit-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(38, 143, 255, 0.5);
+  }
+  
+  /* Disabled state */
+  .edit-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    color: #666666;
+  }
+  
   
