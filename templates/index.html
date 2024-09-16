@@ -62,7 +62,7 @@
                 </div>
             </button>
         </a>
-        <button type="button" onclick="openEditDialog('{{ todo.todo_id }}', '{{ todo.title }}', '{{ todo.priority }}', '{{ todo.deadline }}')">Edit</button>
+        <button type="button" class="edit-button" onclick="openEditDialog('{{ todo.todo_id }}', '{{ todo.title }}', '{{ todo.priority }}', '{{ todo.deadline }}')">Edit</button>
         {% if todo.file_url %}
         <div class="task-file">
             <a href="{{ url_for('uploads', filename=todo.file_url) }}" target="_blank">View File</a>
