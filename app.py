@@ -235,7 +235,7 @@ def add_todo(user_id):
         db.session.commit()
         reminder_time = deadline_date - timedelta(days=1)
        # send_due_date_reminder.apply_async(args=[email, title, deadline_date], eta=reminder_time)
-        send_due_date_reminder.delay(email, title, deadline_date)
+        #send_due_date_reminder.delay(email, title, deadline_date)
 
 
     return redirect(url_for('index', user_id=user_id))
@@ -338,3 +338,4 @@ if __name__ == '__main__':
 #    os.makedirs(app.config['UPLOAD_FOLDER'])
 
 # Define the folder where uploaded files will be saved
+
