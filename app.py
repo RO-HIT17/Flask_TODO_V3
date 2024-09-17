@@ -118,10 +118,6 @@ def edit_task(user_id):
         task.priority = priority
         task.deadline = deadline
         db.session.commit()
-        print("Task updated successfully!", "success")
-    else:
-        print("Task not found!", "danger")
-
     return redirect(url_for('index',user_id=user_id))
     
 @app.route('/send_verification', methods=['POST'])
@@ -233,8 +229,8 @@ def add_todo(user_id):
         new_todo = Todo(title=title, user_id=user_id, priority=priority, deadline=deadline_date, file_url=file_url)
         db.session.add(new_todo)
         db.session.commit()
-        reminder_time = deadline_date - timedelta(days=1)
-       # send_due_date_reminder.apply_async(args=[email, title, deadline_date], eta=reminder_time)
+        #reminder_time = deadline_date - timedelta(days=1)
+        #send_due_date_reminder.apply_async(args=[email, title, deadline_date], eta=reminder_time)
         #send_due_date_reminder.delay(email, title, deadline_date)
 
 
@@ -286,7 +282,6 @@ def uploads(filename):
 
 @app.route('/rankings')
 def rankings():
-    # Query to get users and count their completed tasks
     user_rankings = (
         db.session.query(User.fname, User.lname, db.func.count(Todo.todo_id).label('task_count'))
         .join(Todo, User.user_id == Todo.user_id)
@@ -296,7 +291,6 @@ def rankings():
         .all()
     )
 
-    # Add rank to each user in the results
     ranked_users = []
     for index, user in enumerate(user_rankings, start=1):
         ranked_users.append({
