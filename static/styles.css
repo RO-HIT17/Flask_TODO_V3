@@ -434,7 +434,6 @@ dialog {
     border: none;
     cursor: pointer;
   }
-  /* Styling for buttons with the class 'edit-button' */
 .edit-button {
     font-family: Arial, sans-serif;
     font-size: 16px;
@@ -445,8 +444,8 @@ dialog {
     transition: background-color 0.3s, box-shadow 0.3s;
     padding: 10px 20px;
     text-align: center;
-    color: #fff; /* White text color */
-    background-color: #007bff; /* Blue background color */
+    color: #fff;
+    background-color: #007bff; 
   }
   
   .edit-button:hover {
