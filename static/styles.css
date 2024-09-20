@@ -316,42 +316,42 @@ strike {
     margin-right: 5px;
 }
 
-/* General styles for the header items */
+
 .header-item, .header-deadline, .header-priority {
     display: inline-block;
-    margin-right: 15px; /* Adjust spacing between items as needed */
+    margin-right: 15px; 
 }
 
-/* Remove default button styling */
+
 .header-item button, 
 .header-deadline button, 
 .header-priority button {
     background: none;
     border: none;
-    color: #3498db; /* Customize text color */
-    font-size: 1em; /* Adjust font size as needed */
-    font-weight: bold; /* Adjust font weight */
-    text-decoration: none; /* Remove underline from links */
-    cursor: pointer; /* Pointer cursor on hover */
-    padding: 0; /* Remove default padding */
-    border-bottom: 2px solid transparent; /* Add a transparent border for alignment */
-    transition: border-color 0.3s ease, color 0.3s ease; /* Smooth transition for color and border */
+    color: #3498db; 
+    font-size: 1em; 
+    font-weight: bold; 
+    text-decoration: none; 
+    cursor: pointer; 
+    padding: 0; 
+    border-bottom: 2px solid transparent; 
+    transition: border-color 0.3s ease, color 0.3s ease; 
 }
 
-/* Add hover effect */
+
 .header-item button:hover, 
 .header-deadline button:hover, 
 .header-priority button:hover {
-    color: #2980b9; /* Darker color on hover */
-    border-bottom: 2px solid #3498db; /* Add a colored border to indicate active sorting option */
+    color: #2980b9; 
+    border-bottom: 2px solid #3498db; 
 }
 
-/* Add focus effect for accessibility */
+
 .header-item button:focus, 
 .header-deadline button:focus, 
 .header-priority button:focus {
-    outline: none; /* Remove default focus outline */
-    border-bottom: 2px solid #3498db; /* Add custom focus indicator */
+    outline: none; 
+    border-bottom: 2px solid #3498db; 
 }
 
 .icon-container {
