@@ -114,5 +114,23 @@
                 editDialog.close();
               }
     </script>
+    <script>
+        function addPredefinedTasks(type) {
+            fetch(`/add_predefined_tasks?type=${type}`, {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Optionally handle the response if needed
+                console.log(data);
+                // Reload the page or update tasks dynamically
+                window.location.reload(); // Example: Reload the page after adding tasks
+            })
+            .catch(error => {
+                console.error('Error adding tasks:', error);
+            });
+        }
+    </script>
+    
 </body>
 </html>

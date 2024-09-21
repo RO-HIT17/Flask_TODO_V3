@@ -303,7 +303,6 @@ def rankings():
     return render_template('rankings.html', ranked_users=ranked_users)
 
 
-
 if __name__ == '__main__':
     app.run(debug=True)
 
