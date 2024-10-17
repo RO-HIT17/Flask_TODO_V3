@@ -128,48 +128,48 @@
         <tbody>
             {% for user in ranked_users %}
             <tr>
-                <td>{{ user.rank }}</td> <!-- Rank -->
-                <td>{{ user.fname }}</td> <!-- First Name -->
-                <td>{{ user.lname }}</td> <!-- Last Name -->
-                <td>{{ user.task_count }}</td> <!-- Completed Task Count -->
+                <td>{{ user.rank }}</td> 
+                <td>{{ user.fname }}</td> 
+                <td>{{ user.lname }}</td> 
+                <td>{{ user.task_count }}</td> 
             </tr>
             {% endfor %}
         </tbody>
     </table>
 
-    <!-- Button to navigate back to the previous page -->
+    
     <button class="back-btn" onclick="goBack()">Go Back to Previous Page</button>
 
-    <!-- Theme toggle button -->
+   
     <button class="theme-toggle" id="theme-toggle-btn">Switch to Dark Mode</button>
 
     <script>
-        // Function to go back to the previous page
+        
         function goBack() {
             window.history.back();
         }
 
-        // Theme toggle functionality
+
         const themeToggleBtn = document.getElementById('theme-toggle-btn');
         const body = document.body;
 
-        // Check localStorage for theme preference and apply it
+        
         const currentTheme = localStorage.getItem('theme') || 'light';
         if (currentTheme === 'dark') {
             body.classList.replace('light-theme', 'dark-theme');
             themeToggleBtn.textContent = 'Switch to Light Mode';
         }
 
-        // Add event listener for theme toggle button
+
         themeToggleBtn.addEventListener('click', function() {
             if (body.classList.contains('light-theme')) {
                 body.classList.replace('light-theme', 'dark-theme');
                 themeToggleBtn.textContent = 'Switch to Light Mode';
-                localStorage.setItem('theme', 'dark'); // Save theme preference to localStorage
+                localStorage.setItem('theme', 'dark'); 
             } else {
                 body.classList.replace('dark-theme', 'light-theme');
                 themeToggleBtn.textContent = 'Switch to Dark Mode';
-                localStorage.setItem('theme', 'light'); // Save theme preference to localStorage
+                localStorage.setItem('theme', 'light'); 
             }
         });
     </script>
